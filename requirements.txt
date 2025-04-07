@@ -1,0 +1,21 @@
+# Streamlit for web app
+streamlit==1.33.0
+
+# Data manipulation
+pandas==2.2.1
+numpy==1.26.4
+
+# Plotly for interactive charts
+plotly==5.20.0
+
+# SciPy for statistical analysis (KDE)
+scipy==1.13.0
+
+# Optional but useful for deployment and performance
+requests==2.31.0
+matplotlib==3.8.4
+scikit-learn==1.4.2
+
+# For compatibility with Streamlit Cloud or Heroku-like environments
+pyyaml==6.0.1
+watchdog==4.0.0
