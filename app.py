@@ -5,13 +5,20 @@ import plotly.subplots as sp
 import plotly.graph_objects as go
 import numpy as np
 from scipy.stats import gaussian_kde
+import os
 
-# Load the data from GitHub
-@st.cache_data
+# Load the data using relative path
+@st.cache
 def load_data():
-    url = 'https://raw.githubusercontent.com/<Your-Username>/<Your-Repo>/main/data/Diabetic_DB_Mil2.csv'
-    data = pd.read_csv(url)
-    return data
+    # Relative path to the file from the script's location
+    file_path = os.path.join(os.getcwd(), 'data', 'Diabetic_DB_Mil2.csv')
+    
+    try:
+        data = pd.read_csv(file_path)
+        return data
+    except FileNotFoundError:
+        st.error(f"File not found at {file_path}")
+        return pd.DataFrame()  # Return an empty DataFrame on error
 
 # Load the data
 Diabetic_DB = load_data()
@@ -117,6 +124,7 @@ def main():
     st.title("Diabetes Dataset Visualizations")
     st.sidebar.header("Choose the Graphs to Display")
 
+    # Display categorical and numerical data visualizations
     st.subheader("Categorical Feature Distributions")
     st.plotly_chart(plot_categorical_data())
 
