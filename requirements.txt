@@ -1,21 +1,41 @@
-# Streamlit for web app
-streamlit==1.33.0
+# ---------------------------------------------
+# CORE APP FRAMEWORK
+# ---------------------------------------------
+streamlit==1.33.0              # Core web app framework for building the interactive UI
 
-# Data manipulation
-pandas==2.2.1
-numpy==1.26.4
+# ---------------------------------------------
+# DATA PROCESSING & ANALYSIS
+# ---------------------------------------------
+pandas==2.2.1                  # For loading, cleaning, and manipulating CSV data
+numpy==1.26.4                  # For numerical operations and array handling
 
-# Plotly for interactive charts
-plotly==5.20.0
+# ---------------------------------------------
+# MACHINE LEARNING
+# ---------------------------------------------
+scikit-learn==1.4.2            # Provides models like RandomForest, SVM, and tools for preprocessing
+joblib==1.4.0                  # For loading and saving trained models (used to load .pkl files)
 
-# SciPy for statistical analysis (KDE)
-scipy==1.13.0
+# ---------------------------------------------
+# CHARTING & VISUALIZATION
+# ---------------------------------------------
+plotly==5.20.0                 # For creating interactive plots (e.g., bar charts, histograms)
+matplotlib==3.8.4              # Optional: Used in exploratory analysis or advanced plots
+scipy==1.13.0                  # Required for statistical functions and KDE plots
 
-# Optional but useful for deployment and performance
-requests==2.31.0
-matplotlib==3.8.4
-scikit-learn==1.4.2
+# ---------------------------------------------
+# FILE & NETWORK UTILITIES
+# ---------------------------------------------
+gdown==5.1.0                   # Allows downloading files from Google Drive using file IDs (used for loading models)
+requests==2.31.0               # Handles HTTP requests if needed (useful for APIs or remote data access)
 
-# For compatibility with Streamlit Cloud or Heroku-like environments
-pyyaml==6.0.1
-watchdog==4.0.0
+# ---------------------------------------------
+# STREAMLIT DEPLOYMENT SUPPORT
+# ---------------------------------------------
+pyyaml==6.0.1                  # Required by Streamlit and some plugins for config files
+watchdog==4.0.0                # Used internally by Streamlit for watching file changes (especially during development)
+
+# ---------------------------------------------
+# OPTIONAL (Uncomment if you add these features)
+# tensorflow==2.16.1           # Uncomment if using any TensorFlow models
+# xgboost==2.0.3               # Uncomment if you use XGBoost-based classifiers or regressors
+# seaborn==0.13.2              # Optional: Better-looking plots
