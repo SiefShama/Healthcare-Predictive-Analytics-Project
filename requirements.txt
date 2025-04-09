@@ -12,7 +12,7 @@ numpy==1.26.4                  # For numerical operations and array handling
 # ---------------------------------------------
 # MACHINE LEARNING
 # ---------------------------------------------
-scikit-learn==1.4.2            # Provides models like RandomForest, SVM, and tools for preprocessing
+scikit-learn==1.6.1            # Provides models like RandomForest, SVM, and tools for preprocessing
 joblib==1.4.0                  # For loading and saving trained models (used to load .pkl files)
 
 # ---------------------------------------------
