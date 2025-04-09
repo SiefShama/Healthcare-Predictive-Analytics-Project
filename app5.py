@@ -4,7 +4,7 @@ import numpy as np
 import os
 import joblib
 import gdown
-from sklearn.externals import joblib
+import joblib
 
 # --- File Setup ---
 DATA_PATH = 'data'
