@@ -1,41 +1,45 @@
 # ---------------------------------------------
 # CORE APP FRAMEWORK
 # ---------------------------------------------
-streamlit==1.33.0              # Core web app framework for building the interactive UI
+streamlit==1.33.0              # Core UI framework
 
 # ---------------------------------------------
 # DATA PROCESSING & ANALYSIS
 # ---------------------------------------------
-pandas==2.2.1                  # For loading, cleaning, and manipulating CSV data
-numpy==1.26.4                  # For numerical operations and array handling
+pandas==2.2.1                  # Data manipulation
+numpy==1.26.4                  # Numerical operations
 
 # ---------------------------------------------
 # MACHINE LEARNING
 # ---------------------------------------------
-scikit-learn==1.6.1            # Provides models like RandomForest, SVM, and tools for preprocessing
-joblib==1.4.0                  # For loading and saving trained models (used to load .pkl files)
+scikit-learn==1.6.1            # ML models & preprocessing
+joblib==1.4.0                  # Model saving/loading
+xgboost>=2.0.3                 # Gradient boosting support
 
 # ---------------------------------------------
 # CHARTING & VISUALIZATION
 # ---------------------------------------------
-plotly==5.20.0                 # For creating interactive plots (e.g., bar charts, histograms)
-matplotlib==3.8.4              # Optional: Used in exploratory analysis or advanced plots
-scipy==1.13.0                  # Required for statistical functions and KDE plots
+plotly==5.20.0                 # Interactive plots
+matplotlib==3.8.4              # Static plots
+scipy==1.13.0                  # Scientific computing (e.g., KDE)
+# seaborn==0.13.2              # Optional: advanced plot styling
 
 # ---------------------------------------------
 # FILE & NETWORK UTILITIES
 # ---------------------------------------------
-gdown==5.1.0                   # Allows downloading files from Google Drive using file IDs (used for loading models)
-requests==2.31.0               # Handles HTTP requests if needed (useful for APIs or remote data access)
+gdown==5.1.0                   # Google Drive downloads
+requests==2.31.0               # HTTP requests
+urllib3>=1.26.0                # Required by requests/gdown
 
 # ---------------------------------------------
 # STREAMLIT DEPLOYMENT SUPPORT
 # ---------------------------------------------
-pyyaml==6.0.1                  # Required by Streamlit and some plugins for config files
-watchdog==4.0.0                # Used internally by Streamlit for watching file changes (especially during development)
+pyyaml==6.0.1                  # Config handling
+watchdog==4.0.0                # Hot-reload support
+protobuf<5                     # Streamlit compatibility
+pyarrow>=14.0.0                # Optional: fast data formats (e.g., Parquet)
 
 # ---------------------------------------------
-# OPTIONAL (Uncomment if you add these features)
-# tensorflow==2.16.1           # Uncomment if using any TensorFlow models
-# xgboost==2.0.3               # Uncomment if you use XGBoost-based classifiers or regressors
-# seaborn==0.13.2              # Optional: Better-looking plots
+# OPTIONAL DEPENDENCIES
+# tensorflow==2.16.1           # If using deep learning models
+# seaborn==0.13.2              # If using stylish plots
