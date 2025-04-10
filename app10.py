@@ -36,6 +36,17 @@ st.dataframe(df_models, use_container_width=True)
 model_choice = st.selectbox("🔍 Select a model to use for prediction", df_models["Model"].tolist())
 st.markdown(f"✅ **You selected:** `{model_choice}`")
 
+# Top performers summary
+st.markdown("""
+<br>
+
+🏆 **Top Classifier Performers**
+- **XGB and MLP classifiers** show the **best overall performance**, combining high accuracy (~80%) with good precision/recall balance and generalization.
+- **Logistic Regression** and **Pipeline model** (`pipe_DD`) also deliver solid results and appear stable.
+- **Tree-based models** like `tree_DD` and `rf_DD` exhibit signs of **overfitting**—excellent training scores but a noticeable drop in test performance.
+""", unsafe_allow_html=True)
+
+
 # User input form
 with st.form("diabetes_form"):
     st.subheader("Health Information")
