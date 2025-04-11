@@ -1,45 +1,45 @@
 # ---------------------------------------------
 # CORE APP FRAMEWORK
 # ---------------------------------------------
-streamlit==1.33.0              # Web app UI framework
+streamlit==1.25.0              # Stable, compatible with older deps
 
 # ---------------------------------------------
 # DATA PROCESSING & ANALYSIS
 # ---------------------------------------------
-pandas==2.2.1                  # Data manipulation
-numpy==1.26.4                  # Numerical operations
+pandas==1.3.5                  # Compatible with older numpy/sklearn
+numpy==1.21.6                  # Supports older RNG objects (e.g., MT19937)
 
 # ---------------------------------------------
 # MACHINE LEARNING MODELS
 # ---------------------------------------------
-scikit-learn==1.6.1            # All classic ML models (Linear, Logistic, RF, SVM, KNN, MLP, etc.)
-xgboost>=2.0.3                 # XGBClassifier and XGBRegressor
-joblib==1.4.0                  # Model serialization
+scikit-learn==1.0.2            # Compatible with joblib 1.1.0 and older models
+xgboost==1.6.2                 # Last version compatible with older setups
+joblib==1.1.0                  # Used for model serialization/loading
 
 # ---------------------------------------------
 # CHARTING & VISUALIZATION
 # ---------------------------------------------
-plotly==5.20.0                 # Interactive charts
-matplotlib==3.8.4              # Static visualizations
-scipy==1.13.0                  # Scientific computing (KDE, stats)
-# seaborn==0.13.2              # Optional: attractive statistical plots
+plotly==5.13.0                 # Still feature-rich but backward-friendly
+matplotlib==3.5.3              # Stable with numpy 1.21
+scipy==1.7.3                   # Works well with matplotlib and numpy
+# seaborn==0.11.2              # Optional: compatible with pandas 1.3.5
 
 # ---------------------------------------------
 # FILE & NETWORK UTILITIES
 # ---------------------------------------------
-gdown==5.1.0                   # Google Drive downloads
-requests==2.31.0               # For APIs or remote file access
-urllib3>=1.26.0                # Network reliability
+gdown==4.7.1                   # Older, reliable Google Drive downloader
+requests==2.31.0               # No need to downgrade here
+urllib3==1.26.16               # Safe and widely compatible
 
 # ---------------------------------------------
 # STREAMLIT DEPLOYMENT SUPPORT
 # ---------------------------------------------
-pyyaml==6.0.1                  # Config files
-watchdog==4.0.0                # File change monitoring (hot-reload)
-protobuf<5                     # Required by Streamlit
-pyarrow>=14.0.0                # Optional: Parquet or Arrow data support
+pyyaml==6.0.1                  # YAML parsing
+watchdog==2.1.9                # Compatible with Python 3.7–3.10
+protobuf==4.25.3               # Streamlit <1.26 requires protobuf <5
+pyarrow==8.0.0                 # Older Arrow support, lighter footprint
 
 # ---------------------------------------------
 # OPTIONAL DEPENDENCIES
-# tensorflow==2.16.1           # Uncomment if adding DL models
-# seaborn==0.13.2              # Uncomment if you use advanced styled plots
+# tensorflow==2.10.0           # Use if needed (last version for many GPUs)
+# seaborn==0.11.2              # Compatible with older pandas/matplotlib
