@@ -1,7 +1,7 @@
 # ---------------------------------------------
 # CORE APP FRAMEWORK
 # ---------------------------------------------
-streamlit==1.33.0              # Core UI framework
+streamlit==1.33.0              # Web app UI framework
 
 # ---------------------------------------------
 # DATA PROCESSING & ANALYSIS
@@ -10,36 +10,36 @@ pandas==2.2.1                  # Data manipulation
 numpy==1.26.4                  # Numerical operations
 
 # ---------------------------------------------
-# MACHINE LEARNING
+# MACHINE LEARNING MODELS
 # ---------------------------------------------
-scikit-learn==1.6.1            # ML models & preprocessing
-joblib==1.4.0                  # Model saving/loading
-xgboost>=2.0.3                 # Gradient boosting support
+scikit-learn==1.6.1            # All classic ML models (Linear, Logistic, RF, SVM, KNN, MLP, etc.)
+xgboost>=2.0.3                 # XGBClassifier and XGBRegressor
+joblib==1.4.0                  # Model serialization
 
 # ---------------------------------------------
 # CHARTING & VISUALIZATION
 # ---------------------------------------------
-plotly==5.20.0                 # Interactive plots
-matplotlib==3.8.4              # Static plots
-scipy==1.13.0                  # Scientific computing (e.g., KDE)
-# seaborn==0.13.2              # Optional: advanced plot styling
+plotly==5.20.0                 # Interactive charts
+matplotlib==3.8.4              # Static visualizations
+scipy==1.13.0                  # Scientific computing (KDE, stats)
+# seaborn==0.13.2              # Optional: attractive statistical plots
 
 # ---------------------------------------------
 # FILE & NETWORK UTILITIES
 # ---------------------------------------------
 gdown==5.1.0                   # Google Drive downloads
-requests==2.31.0               # HTTP requests
-urllib3>=1.26.0                # Required by requests/gdown
+requests==2.31.0               # For APIs or remote file access
+urllib3>=1.26.0                # Network reliability
 
 # ---------------------------------------------
 # STREAMLIT DEPLOYMENT SUPPORT
 # ---------------------------------------------
-pyyaml==6.0.1                  # Config handling
-watchdog==4.0.0                # Hot-reload support
-protobuf<5                     # Streamlit compatibility
-pyarrow>=14.0.0                # Optional: fast data formats (e.g., Parquet)
+pyyaml==6.0.1                  # Config files
+watchdog==4.0.0                # File change monitoring (hot-reload)
+protobuf<5                     # Required by Streamlit
+pyarrow>=14.0.0                # Optional: Parquet or Arrow data support
 
 # ---------------------------------------------
 # OPTIONAL DEPENDENCIES
-# tensorflow==2.16.1           # If using deep learning models
-# seaborn==0.13.2              # If using stylish plots
+# tensorflow==2.16.1           # Uncomment if adding DL models
+# seaborn==0.13.2              # Uncomment if you use advanced styled plots
