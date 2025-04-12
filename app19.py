@@ -255,7 +255,7 @@ def prediction_section():
 
 
     else:
-        model_results = {
+        model_data = {
             "Model": list(model_drive_ids_R.keys()),
             "Train R²": [0.3505, 0.9632, 0.8801, 0.4369, 0.4003, 0.5194],
             "Test R²": [0.3398, -0.2958, 0.3001, 0.3928, 0.3846, 0.2679],
@@ -268,6 +268,9 @@ def prediction_section():
                 "Weaker test performance. Likely impacted by local sensitivity of KNN."
             ]
         }
+        
+        df_models = pd.DataFrame(model_data)
+        st.dataframe(df_models, use_container_width=True)
         
         model_drive_ids = model_drive_ids_R
         
