@@ -221,7 +221,7 @@ def prediction_section():
         "knnr_DD": "102fam3U0c63bHIypOD6Wh_84obw6MPjg"
     }
 
-    if model_type == "Classification"
+    if model_type == "Classification":
         model_data = {
             "Model": list(model_drive_ids_C.keys()),
             "Train Acc": [0.7895, 0.7875, 0.8002, 0.8327, 0.9825, 0.9825, 0.8128, 0.8079, 0.7897],
