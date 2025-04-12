@@ -108,7 +108,7 @@ def plotting_section():
         "Data Type": [
             "int64", "int64", "int64", "int64", "int64", "int64",
             "int64", "int64", "int64", "int64", "int64", "int64", "int64",
-            "int64", "int64", "int64", "int64", "int64", "int64"
+            "int64", "int64", "int64", "int64", "int64"
         ],
         "Description": [
             "Indicates if the individual has diabetes (`1` = Yes, `0` = No).",
