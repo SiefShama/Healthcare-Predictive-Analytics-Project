@@ -36,7 +36,134 @@ def plotting_section():
     st.title("📊 Diabetes Dataset Visualizations")
     dataset_version = st.sidebar.selectbox("Choose dataset version:", ["Start", "Cleaned"])
     Diabetic_DB = load_data(dataset_version)
+    
+    # Define the dataset schema
+    data1 = {
+        "Column Name": [
+            "Diabetes_State", "HB", "Cholesterol", "BMI", "Heart_Disease", "PhysActivity",
+            "PhysHlth", "Gender", "Age", "Stroke", "GenHlth", "CholCheck", "Smoker",
+            "Fruits", "Veggies", "HvyAlcoholConsump", "MentHlth", "DiffWalk", "ID", "Race", "Weight"
+        ],
+        "Data Type": [
+            "int64", "float64", "float64", "float64", "float64", "float64",
+            "int64", "float64", "int64", "float64", "float64", "float64", "float64",
+            "float64", "float64", "float64", "float64", "float64", "int64", "object", "object"
+        ],
+        "Description": [
+            "Indicates if the individual has diabetes (`1` = Yes, `0` = No).",
+            "High blood pressure level.",
+            "Total cholesterol level.",
+            "Body Mass Index (BMI).",
+            "Indicates history of heart disease or heart attack.",
+            "Whether the individual exercises regularly (`1` = Yes, `0` = No).",
+            "Number of days in the past month with poor physical health.",
+            "Gender (`1` = Male, `0` = Female).",
+            "Age group classification.",
+            "Whether the individual has had a stroke (`1` = Yes, `0` = No).",
+            "Self-reported general health (`1` = Excellent, ... , `5` = Poor).",
+            "Whether cholesterol was checked in the past 5 years (`1` = Yes, `0` = No).",
+            "Whether the individual is a smoker (`1` = Yes, `0` = No).",
+            "Whether the individual consumes fruits regularly (`1` = Yes, `0` = No).",
+            "Whether the individual consumes vegetables regularly (`1` = Yes, `0` = No).",
+            "Heavy alcohol consumption (`1` = Yes, `0` = No).",
+            "Number of days in the past month with poor mental health.",
+            "Difficulty walking or climbing stairs (`1` = Yes, `0` = No).",
+            "Unique patient identifier.",
+            "Patient's racial background.",
+            "Weight of the patient (missing for most records)."
+        ],
+        "Potential Use in Analysis": [
+            "Target variable for diabetes prediction models.",
+            "Risk factor for diabetes and heart disease.",
+            "High levels may indicate risk of diabetes or cardiovascular disease.",
+            "Used to assess obesity, a risk factor for diabetes.",
+            "Useful for assessing comorbidities with diabetes.",
+            "Physical activity helps in managing diabetes.",
+            "Indicator of overall health and chronic conditions.",
+            "Used for demographic analysis in health studies.",
+            "Age is a major risk factor for diabetes.",
+            "Stroke risk increases with diabetes.",
+            "Subjective health assessment for predictive models.",
+            "Preventive health measure for cardiovascular risks.",
+            "Smoking is a risk factor for diabetes complications.",
+            "Affects diet-related diabetes risk.",
+            "Indicator of a healthy diet.",
+            "Excessive drinking can increase diabetes risk.",
+            "Mental health impacts overall well-being.",
+            "Indicator of mobility issues related to diabetes.",
+            "Used for tracking individual records.",
+            "Useful for studying disparities in diabetes prevalence.",
+            "Can be used for BMI calculations if data is available."
+        ]
+    }
+    
 
+    # Define the dataset schema
+    data2 = {
+        "Column Name": [
+            "Diabetes_State", "HB", "Cholesterol", "BMI", "Heart_Disease", "PhysActivity",
+            "PhysHlth", "Gender", "Age", "Stroke", "GenHlth", "CholCheck", "Smoker",
+            "Fruits", "Veggies", "HvyAlcoholConsump", "MentHlth", "DiffWalk"
+        ],
+        "Data Type": [
+            "int64", "int64", "int64", "int64", "int64", "int64",
+            "int64", "int64", "int64", "int64", "int64", "int64", "int64",
+            "int64", "int64", "int64", "int64", "int64", "int64"
+        ],
+        "Description": [
+            "Indicates if the individual has diabetes (`1` = Yes, `0` = No).",
+            "High blood pressure level.",
+            "Total cholesterol level.",
+            "Body Mass Index (BMI).",
+            "Indicates history of heart disease or heart attack.",
+            "Whether the individual exercises regularly (`1` = Yes, `0` = No).",
+            "Number of days in the past month with poor physical health.",
+            "Gender (`1` = Male, `0` = Female).",
+            "Age group classification.",
+            "Whether the individual has had a stroke (`1` = Yes, `0` = No).",
+            "Self-reported general health (`1` = Excellent, ... , `5` = Poor).",
+            "Whether cholesterol was checked in the past 5 years (`1` = Yes, `0` = No).",
+            "Whether the individual is a smoker (`1` = Yes, `0` = No).",
+            "Whether the individual consumes fruits regularly (`1` = Yes, `0` = No).",
+            "Whether the individual consumes vegetables regularly (`1` = Yes, `0` = No).",
+            "Heavy alcohol consumption (`1` = Yes, `0` = No).",
+            "Number of days in the past month with poor mental health.",
+            "Difficulty walking or climbing stairs (`1` = Yes, `0` = No)."
+        ],
+        "Potential Use in Analysis": [
+            "Target variable for diabetes prediction models.",
+            "Risk factor for diabetes and heart disease.",
+            "High levels may indicate risk of diabetes or cardiovascular disease.",
+            "Used to assess obesity, a risk factor for diabetes.",
+            "Useful for assessing comorbidities with diabetes.",
+            "Physical activity helps in managing diabetes.",
+            "Indicator of overall health and chronic conditions.",
+            "Used for demographic analysis in health studies.",
+            "Age is a major risk factor for diabetes.",
+            "Stroke risk increases with diabetes.",
+            "Subjective health assessment for predictive models.",
+            "Preventive health measure for cardiovascular risks.",
+            "Smoking is a risk factor for diabetes complications.",
+            "Affects diet-related diabetes risk.",
+            "Indicator of a healthy diet.",
+            "Excessive drinking can increase diabetes risk.",
+            "Mental health impacts overall well-being.",
+            "Indicator of mobility issues related to diabetes."
+        ]
+    }
+
+    # Convert to DataFrame
+    df1 = pd.DataFrame(data1)
+    df2 = pd.DataFrame(data2)
+
+    # Display with Streamlit
+    if dataset_version == "Start":
+        st.title("📊 Diabetic DB - Dataset Schema (Start Version)")
+        st.dataframe(df1)
+    else:
+        st.title("📋 Diabetic DB - Dataset Schema (CLeaned Version)")
+        st.dataframe(df2)
+    
     categorical_columns = [
         "Diabetes_State", "PhysHlth", "Gender", "Age", "Stroke", "GenHlth",
         "CholCheck", "Smoker", "Fruits", "Veggies", "HvyAlcoholConsump", "DiffWalk"
