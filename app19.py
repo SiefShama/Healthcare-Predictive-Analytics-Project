@@ -272,12 +272,12 @@ def prediction_section():
         model_drive_ids = model_drive_ids_R
         
         # Analysis summary
-            st.markdown("### 🏆 **Top Regressor Performers**")
-            st.markdown("""
-            - **XGB Regressor** (`xgbr_DD`) and **MLP Regressor** (`mlpr_DD`) show **the most stable performance** across training and test sets, with R² values near 0.39.
-            - **Tree-based regressors** (`treer_DD`, `rfr_DD`) suffer from severe **overfitting**.
-            - **`regressor_DD`** also performs moderately well but is outperformed by `xgbr_DD`.
-            """, unsafe_allow_html=True)
+        st.markdown("### 🏆 **Top Regressor Performers**")
+        st.markdown("""
+        - **XGB Regressor** (`xgbr_DD`) and **MLP Regressor** (`mlpr_DD`) show **the most stable performance** across training and test sets, with R² values near 0.39.
+        - **Tree-based regressors** (`treer_DD`, `rfr_DD`) suffer from severe **overfitting**.
+        - **`regressor_DD`** also performs moderately well but is outperformed by `xgbr_DD`.
+        """, unsafe_allow_html=True)
     
     
     model_choice = st.selectbox("🔍 Select a model to use for prediction", df_models["Model"].tolist())
