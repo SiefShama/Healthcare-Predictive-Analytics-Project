@@ -178,6 +178,15 @@ def prediction_section():
             st.success(f"🧠 Model Prediction: {result}")
 
 
+            
+        user_input = [[
+            hb, cholesterol, bmi, heart_disease, phys_activity,
+            phys_health, gender, age, stroke, gen_health,
+            chol_check, smoker, fruits, veggies, alcohol,
+            ment_health, diff_walk
+        ]]
+
+
         model_id = model_drive_ids.get(model_choice)
 
         if model_id:
