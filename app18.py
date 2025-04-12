@@ -82,6 +82,12 @@ def prediction_section():
         "logr_DD": "1-zgV0vl8g1qWsQkrqB7nzZS_a_sXnvev"
     }
 
+    df_models = pd.DataFrame({
+        "Model": list(model_drive_ids.keys()),
+        "Train Acc": [0.7895, 0.7875, 0.8002, 0.8327, 0.9825, 0.9825, 0.8128, 0.8079, 0.7897],
+        "Test Acc": [0.7866, 0.7824, 0.7957, 0.7682, 0.6926, 0.7774, 0.8027, 0.8026, 0.7861],
+        "R²": [0.1022, 0.0845, 0.1402, 0.0247, -0.2933, 0.0631, 0.1699, 0.1694, 0.1001],
+    })
     model_data = {
     "Model": list(model_drive_ids.keys()),
     "Train Acc": [0.7895, 0.7875, 0.8002, 0.8327, 0.9825, 0.9825, 0.8128, 0.8079, 0.7897],
@@ -98,14 +104,8 @@ def prediction_section():
         "Similar to XGB. Stable and well-balanced.",
         "Good generalization, comparable to pipe_DD."
     ]
-    }
-    df_models = pd.DataFrame(model_data)
-    st.dataframe(df_models, use_container_width=True)
-
-    # Model selection dropdown
-    model_choice = st.selectbox("🔍 Select a model to use for prediction", df_models["Model"].tolist())
-    st.markdown(f"✅ **You selected:** `{model_choice}`")
-
+}
+    
     # Summary
     st.markdown("""
     🏆 **Top Performers**
@@ -113,7 +113,6 @@ def prediction_section():
     - Logistic Regression & Pipeline: Solid results.
     - Tree models: Watch for overfitting.
     """, unsafe_allow_html=True)
-
 
     st.dataframe(df_models, use_container_width=True)
     model_choice = st.selectbox("🔍 Select a model to use for prediction", df_models["Model"].tolist())
