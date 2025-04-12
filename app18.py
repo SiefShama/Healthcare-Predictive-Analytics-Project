@@ -98,21 +98,21 @@ def prediction_section():
         "Similar to XGB. Stable and well-balanced.",
         "Good generalization, comparable to pipe_DD."
     ]
-}
-df_models = pd.DataFrame(model_data)
-st.dataframe(df_models, use_container_width=True)
+    }
+    df_models = pd.DataFrame(model_data)
+    st.dataframe(df_models, use_container_width=True)
 
-# Model selection dropdown
-model_choice = st.selectbox("🔍 Select a model to use for prediction", df_models["Model"].tolist())
-st.markdown(f"✅ **You selected:** `{model_choice}`")
+    # Model selection dropdown
+    model_choice = st.selectbox("🔍 Select a model to use for prediction", df_models["Model"].tolist())
+    st.markdown(f"✅ **You selected:** `{model_choice}`")
 
-# Summary
-st.markdown("""
-🏆 **Top Performers**
-- XGB & MLP: Excellent balance of accuracy and generalization.
-- Logistic Regression & Pipeline: Solid results.
-- Tree models: Watch for overfitting.
-""", unsafe_allow_html=True)
+    # Summary
+    st.markdown("""
+    🏆 **Top Performers**
+    - XGB & MLP: Excellent balance of accuracy and generalization.
+    - Logistic Regression & Pipeline: Solid results.
+    - Tree models: Watch for overfitting.
+    """, unsafe_allow_html=True)
 
 
     st.dataframe(df_models, use_container_width=True)
