@@ -158,17 +158,18 @@ def plotting_section():
 
     # Display with Streamlit
     if dataset_version == "Start":
-        st.title("📊 Diabetic DB - Dataset Schema (Start Version)")
+        st.title("📋 Dataset Schema (Start Version)")
         st.dataframe(df1)
     else:
-        st.title("📋 Diabetic DB - Dataset Schema (CLeaned Version)")
+        st.title("📋 Dataset Schema (CLeaned Version)")
         st.dataframe(df2)
     
     categorical_columns = [
-        "Diabetes_State", "PhysHlth", "Gender", "Age", "Stroke", "GenHlth",
-        "CholCheck", "Smoker", "Fruits", "Veggies", "HvyAlcoholConsump", "DiffWalk"
+        "Diabetes_State", "Gender", "Stroke", "GenHlth",
+        "CholCheck", "Smoker", "Fruits", "Veggies", "HvyAlcoholConsump", "DiffWalk",
+        "HB","Cholesterol", "Heart_Disease", "PhysActivity"
     ]
-    numerical_columns = ["HB", "Cholesterol", "BMI", "Heart_Disease", "PhysActivity", "MentHlth"]
+    numerical_columns = [ "BMI", "MentHlth", "Age", "PhysHlth"]
 
     plot_type = st.sidebar.selectbox("Choose plot type:", ["Categorical", "Numerical"])
 
