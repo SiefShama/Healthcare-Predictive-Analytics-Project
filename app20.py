@@ -570,22 +570,30 @@ def plotting_section():
 
             
     elif plot_type == "General":
-        # Compute correlation matrix
+        ## Compute correlation matrix
         correlation_matrix = Diabetic_DB.corr()
 
+        # Create heatmap using graph_objects
+        fig = go.Figure(data=go.Heatmap(
+            z=correlation_matrix.values,
+            x=correlation_matrix.columns,
+            y=correlation_matrix.index,
+            colorscale='RdBu',
+            zmin=-1,
+            zmax=1,
+            colorbar=dict(title='Correlation'),
+            hoverongaps=False
+        ))
 
-        # Plot heatmap using Plotly
-        fig = px.imshow(
-            correlation_matrix,
-            text_auto=True,
-            color_continuous_scale='RdBu_r',
-            zmin=-1, zmax=1,
-            title="Correlation Heatmap"
-        )
+        fig.update_layout(title='Correlation Heatmap', xaxis_nticks=36)
 
-        # Streamlit display
+        # Display in Streamlit
         st.title("Correlation Heatmap of Diabetic Dataset")
         st.plotly_chart(fig, use_container_width=True)
+
+
+
+
 
             
 
