@@ -527,7 +527,7 @@ def plotting_section():
                 """, unsafe_allow_html=True)
             
         else:
-             st.markdown("###🧠 Insights and Recommendations**")
+            st.markdown("###🧠 Insights and Recommendations**")
             st.markdown("""            
             The data shows trends typical of health-focused populations. 
             Most individuals have normal to slightly high BMI, with a significant portion potentially obese — reinforcing obesity’s link to diabetes. Physical and mental health are generally good, though a minority experience chronic issues, indicating potential risk groups. 
