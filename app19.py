@@ -185,7 +185,7 @@ def plotting_section():
         st.plotly_chart(fig)
         if dataset_version == "Start":
             
-            st.markdown("###🔍 Overall Dataset Insights**")
+            st.markdown("### 🔍 **Overall Dataset Insights**")
             st.markdown("""
 
             Imbalances: Many target variables (e.g., Stroke, Heart_Disease, Diabetes_State) show strong class imbalance, which could affect predictive modeling and need handling during training.
@@ -194,7 +194,7 @@ def plotting_section():
 
             """, unsafe_allow_html=True)
             if selected_col =="Diabetes_State":
-                st.markdown("#### 🔷 Distribution of Diabetes_State**")
+                st.markdown("#### 🔷 **Distribution of Diabetes_State**")
                 st.markdown("""
                 0: Majority (~220,000+ samples) do not have diabetes.
                 1: Smaller portion (~100,000 samples) have diabetes.
@@ -203,14 +203,14 @@ def plotting_section():
                 """, unsafe_allow_html=True)
                 
             elif selected_col == "Gender":
-                st.markdown("#### 🔷 Distribution of Gender**")
+                st.markdown("#### 🔷 **Distribution of Gender**")
                 st.markdown("""
                 0 and 1 (probably Male and Female or vice versa): Both classes are well represented.
                 Comment: The gender variable appears balanced, which is good for modeling to avoid gender bias.
                 """, unsafe_allow_html=True)
                 
             elif selected_col == "Stroke":
-                st.markdown("#### 🔷 Distribution of Stroke**")
+                st.markdown("#### 🔷 **Distribution of Stroke**")
                 st.markdown("""
                 0: Vast majority (~240,000) did not experience stroke.
                 1: Very small portion (~10,000) had a stroke.
@@ -219,7 +219,7 @@ def plotting_section():
                 """, unsafe_allow_html=True)
                 
             elif selected_col == "GenHlth":
-                st.markdown("#### 🔷 Distribution of GenHlth (General Health)**")
+                st.markdown("#### 🔷 **Distribution of GenHlth (General Health)**")
                 st.markdown("""
                 Values from 1 (Excellent) to 5 (Poor):
                 2 and 3 (Good to Very Good) are most common.
@@ -229,7 +229,7 @@ def plotting_section():
                 """, unsafe_allow_html=True)
                 
             elif selected_col == "CholCheck":
-                st.markdown("#### 🔷 Distribution of CholCheck (Cholesterol Check)**")
+                st.markdown("#### 🔷 **Distribution of CholCheck (Cholesterol Check)**")
                 st.markdown("""
                 1 (Yes) dominates — most people had their cholesterol checked.
                 0 (No) is very low.
@@ -238,7 +238,7 @@ def plotting_section():
                 """, unsafe_allow_html=True)
                 
             elif selected_col == "Smoker":
-                st.markdown("#### 🔷 Distribution of Smoker**")
+                st.markdown("#### 🔷 **Distribution of Smoker**")
                 st.markdown("""
                 Slightly more non-smokers than smokers.
                 Comment: The distribution is relatively balanced; might serve well in exploring lifestyle impacts on health.
@@ -247,7 +247,7 @@ def plotting_section():
                 
                 
             elif selected_col == "Fruits":
-                st.markdown("#### 🔷 Distribution of Fruits**")
+                st.markdown("#### 🔷 **Distribution of Fruits**")
                 st.markdown("""
                 Majority consume fruits (1).
                 Minority do not (0).
@@ -257,14 +257,14 @@ def plotting_section():
                 
                 
             elif selected_col == "Veggies":
-                st.markdown("#### 🔷 Distribution of Veggies**")
+                st.markdown("#### 🔷 **Distribution of Veggies**")
                 st.markdown("""
                 Similar to Fruits — majority consume vegetables.
                 Comment: Another lifestyle indicator with more healthy responders.
                 """, unsafe_allow_html=True)
                 
             elif selected_col == "HvyAlcoholConsump":
-                st.markdown("#### 🔷 Distribution of HvyAlcoholConsum (Heavy Alcohol Consumption)**")
+                st.markdown("#### 🔷 **Distribution of HvyAlcoholConsum (Heavy Alcohol Consumption)**")
                 st.markdown("""
                 0 (No): Strong majority.
                 1 (Yes): Very few.
@@ -273,7 +273,7 @@ def plotting_section():
                 """, unsafe_allow_html=True)
                   
             elif selected_col == "DiffWalk":
-                st.markdown("#### 🔷 Distribution of DiffWalk (Difficulty Walking)**")
+                st.markdown("#### 🔷 **Distribution of DiffWalk (Difficulty Walking)**")
                 st.markdown("""
                 0: Majority have no difficulty.
                 1: Minority face difficulty.
@@ -281,7 +281,7 @@ def plotting_section():
                 """, unsafe_allow_html=True)
             
             elif selected_col == "HB":
-                st.markdown("#### 🔷 Distribution of HB (High Blood Pressure)**")
+                st.markdown("#### 🔷 **Distribution of HB (High Blood Pressure)**")
                 st.markdown("""
                 Reasonably balanced:
                 Many have high blood pressure (1).
@@ -290,7 +290,7 @@ def plotting_section():
                 """, unsafe_allow_html=True)
                 
             elif selected_col == "Cholesterol":
-                st.markdown("#### 🔷 Distribution of Cholesterol**")
+                st.markdown("#### 🔷 **Distribution of Cholesterol**")
                 st.markdown("""
                 Fairly balanced:
                 Slightly more individuals without high cholesterol (0).
@@ -299,7 +299,7 @@ def plotting_section():
                 """, unsafe_allow_html=True)
                 
             elif selected_col == "Heart_Disease":
-                st.markdown("#### 🔷 Distribution of Heart_Disease**")
+                st.markdown("#### 🔷 **Distribution of Heart_Disease**")
                 st.markdown("""
                 0: Vast majority without heart disease.
                 1: Small minority with heart disease.
@@ -307,7 +307,7 @@ def plotting_section():
                 """, unsafe_allow_html=True)
                 
             elif selected_col == "PhysActivity":
-                st.markdown("#### 🔷 Distribution of PhysActivity (Physical Activity)**")
+                st.markdown("#### 🔷 **Distribution of PhysActivity (Physical Activity)**")
                 st.markdown("""
                 Majority engage in physical activity (1).
                 Minority do not (0).
@@ -316,7 +316,7 @@ def plotting_section():
                   
 
         else:
-            st.markdown("###🔍 Overall Dataset Insights**")
+            st.markdown("### 🔍 **Overall Dataset Insights**")
             st.markdown("""
             The dataset reflects a generally healthy population, with most individuals free from diabetes, heart disease, or stroke. However, a notable minority has these conditions, highlighting key risk groups.
             Lifestyle habits are mixed — many show poor physical activity, low fruit/vegetable intake, and some smoke or drink heavily, all contributing to health risks.
@@ -327,7 +327,7 @@ def plotting_section():
             
 
             if selected_col =="Diabetes_State":
-                st.markdown("#### 🔷 Distribution of Diabetes_State**")
+                st.markdown("#### 🔷 **Distribution of Diabetes_State**")
                 st.markdown("""
                 - This column represents whether a person has diabetes (1) or not (0).  
                 - The bar plot likely shows that the majority of individuals do not have diabetes, with a smaller proportion being diabetic.  
@@ -336,7 +336,7 @@ def plotting_section():
                 """, unsafe_allow_html=True)
                 
             elif selected_col == "Gender":
-                st.markdown("#### 🔷 Distribution of Gender**")
+                st.markdown("#### 🔷 **Distribution of Gender**")
                 st.markdown("""
                 The dataset has a mix of male (0) and female (1) respondents.
                 If there's an imbalance, it could indicate sampling bias where one gender is more represented than the other.
@@ -345,7 +345,7 @@ def plotting_section():
                 """, unsafe_allow_html=True)
                 
             elif selected_col == "Stroke":
-                st.markdown("#### 🔷 Distribution of Stroke**")
+                st.markdown("#### 🔷 **Distribution of Stroke**")
                 st.markdown("""
                 The majority of individuals are expected to have 0 (no stroke), while a smaller percentage has 1 (had a stroke).
                 The small number of stroke cases aligns with real-world data, as strokes are less frequent in the general population.
@@ -353,7 +353,7 @@ def plotting_section():
                 """, unsafe_allow_html=True)
                 
             elif selected_col == "GenHlth":
-                st.markdown("#### 🔷 Distribution of GenHlth (General Health)**")
+                st.markdown("#### 🔷 **Distribution of GenHlth (General Health)**")
                 st.markdown("""
                 This is likely an ordinal scale (e.g., 1 = Excellent, 5 = Poor).
                 If the bar plot is skewed towards the lower values (1 or 2), it suggests that most people rate their health as good.
@@ -361,7 +361,7 @@ def plotting_section():
                 """, unsafe_allow_html=True)
                 
             elif selected_col == "CholCheck":
-                st.markdown("#### 🔷 Distribution of CholCheck (Cholesterol Check)**")
+                st.markdown("#### 🔷 **Distribution of CholCheck (Cholesterol Check)**")
                 st.markdown("""
                 This binary variable (0 = No, 1 = Yes) indicates whether individuals have checked their cholesterol levels.
                 If the majority fall into 1, it suggests a health-conscious population.
@@ -370,7 +370,7 @@ def plotting_section():
                 """, unsafe_allow_html=True)
                 
             elif selected_col == "Smoker":
-                st.markdown("#### 🔷 Distribution of Smoker**")
+                st.markdown("#### 🔷 **Distribution of Smoker**")
                 st.markdown("""
                 The dataset likely shows a mix of smokers (1) and non-smokers (0).
                 A high percentage of smokers suggests a public health concern, as smoking is linked to diabetes and cardiovascular diseases.
@@ -379,7 +379,7 @@ def plotting_section():
                 
                 
             elif selected_col == "Fruits":
-                st.markdown("#### 🔷 Distribution of Fruits**")
+                st.markdown("#### 🔷 **Distribution of Fruits**")
                 st.markdown("""
                 This variable is likely binary (1 = Eats fruits regularly, 0 = Does not).
                 If most people fall into 0, it suggests poor dietary habits.
@@ -388,7 +388,7 @@ def plotting_section():
                 
                 
             elif selected_col == "Veggies":
-                st.markdown("#### 🔷 Distribution of Veggies**")
+                st.markdown("#### 🔷 **Distribution of Veggies**")
                 st.markdown("""
                 Like the fruits variable, this indicates vegetable consumption.
                 If more people report 0, it suggests a lack of proper nutrition, which could be a risk factor for diabetes.
@@ -396,7 +396,7 @@ def plotting_section():
                 """, unsafe_allow_html=True)
                 
             elif selected_col == "HvyAlcoholConsump":
-                st.markdown("#### 🔷 Distribution of HvyAlcoholConsum (Heavy Alcohol Consumption)**")
+                st.markdown("#### 🔷 **Distribution of HvyAlcoholConsum (Heavy Alcohol Consumption)**")
                 st.markdown("""
                 This variable indicates individuals who consume alcohol heavily (1) versus those who do not (0).
                 If the majority are 0, it suggests that most individuals do not engage in heavy drinking.
@@ -404,7 +404,7 @@ def plotting_section():
                 """, unsafe_allow_html=True)
                   
             elif selected_col == "DiffWalk":
-                st.markdown("#### 🔷 Distribution of DiffWalk (Difficulty Walking)**")
+                st.markdown("#### 🔷 **Distribution of DiffWalk (Difficulty Walking)**")
                 st.markdown("""
                 This variable indicates if a person has mobility issues (1) or not (0).
                 A high count in 1 could indicate a population with chronic illnesses or aging individuals.
@@ -412,7 +412,7 @@ def plotting_section():
                 """, unsafe_allow_html=True)
                             
             elif selected_col == "HB":
-                st.markdown("#### 🔷 Distribution of HB (High Blood Pressure)**")
+                st.markdown("#### 🔷 **Distribution of HB (High Blood Pressure)**")
                 st.markdown("""
                 Hemoglobin levels typically follow a normal distribution, but the histogram might show a skewed pattern due to missing values.
                 A peak in a normal range (e.g., 12–17 g/dL) suggests most individuals have healthy hemoglobin levels.
@@ -420,7 +420,7 @@ def plotting_section():
                 """, unsafe_allow_html=True)
                 
             elif selected_col == "Cholesterol":
-                st.markdown("#### 🔷 Distribution of Cholesterol**")
+                st.markdown("#### 🔷 **Distribution of Cholesterol**")
                 st.markdown("""
                 The histogram likely shows a right-skewed distribution, meaning most people have cholesterol in the normal range but some have very high values.
                 High cholesterol is a major risk factor for diabetes and heart disease.
@@ -429,7 +429,7 @@ def plotting_section():
                 """, unsafe_allow_html=True)
                 
             elif selected_col == "Heart_Disease":
-                st.markdown("#### 🔷 Distribution of Heart_Disease**")
+                st.markdown("#### 🔷 **Distribution of Heart_Disease**")
                 st.markdown("""
                 The values might be binary or continuous, representing risk scores.
                 If binary (0 = No, 1 = Yes), a majority 0 indicates fewer heart disease cases, while a significant number of 1s highlights a concerning trend.
@@ -437,7 +437,7 @@ def plotting_section():
                 """, unsafe_allow_html=True)
                 
             elif selected_col == "PhysActivity":
-                st.markdown("#### 🔷 Distribution of PhysActivity (Physical Activity)**")
+                st.markdown("#### 🔷 **Distribution of PhysActivity (Physical Activity)**")
                 st.markdown("""
                 This variable may show a peak at 0 (no activity) and then a gradual decrease at higher activity levels.
                 A high number of 0s suggests a sedentary lifestyle, which is a risk factor for diabetes.
@@ -457,7 +457,7 @@ def plotting_section():
         fig.update_layout(title=f"Histogram with KDE for {selected_col}", xaxis_title=selected_col, yaxis_title="Density", barmode='overlay')
         st.plotly_chart(fig)
         if dataset_version == "Start":
-            st.markdown("###🧠 Insights and Recommendations**")
+            st.markdown("### 🧠 **Insights and Recommendations**")
             st.markdown("""
 
             1. **Right-Skewed Distributions:**
@@ -478,7 +478,7 @@ def plotting_section():
 
 
             if selected_col =="BMI":
-                st.markdown("#### 🔷 Distribution of BMI (Body Mass Index)**")
+                st.markdown("#### 🔷 **Distribution of BMI (Body Mass Index)**")
                 st.markdown("""
                 Distribution: Right-skewed (positively skewed).
                 Peak: Most data points are concentrated between 20 and 35 BMI, with a prominent peak around 27-28.
@@ -490,7 +490,7 @@ def plotting_section():
 
                 """, unsafe_allow_html=True)
             elif selected_col == "MentHlth":
-                st.markdown("#### 🔷 Distribution of MentHlth (Number of Mentally Unhealthy Days in Last 30)**")
+                st.markdown("#### 🔷 **Distribution of MentHlth (Number of Mentally Unhealthy Days in Last 30)**")
                 st.markdown("""
                 Distribution: Strong right skew.
                 Peak at 0: A huge spike at 0 days (indicating no mentally unhealthy days for most respondents).
@@ -502,7 +502,7 @@ def plotting_section():
 
                 """, unsafe_allow_html=True)
             elif selected_col == "Age":
-                st.markdown("#### 🔷 Distribution of Age**")
+                st.markdown("#### 🔷 **Distribution of Age**")
                 st.markdown("""
                 Distribution: Multimodal (multiple peaks).
                 Strange Binning: Appears categorical or grouped by age brackets (e.g., 5-year intervals). Peaks at fixed intervals (e.g., 18, 25, 30... up to 80+).
@@ -514,7 +514,7 @@ def plotting_section():
 
                 """, unsafe_allow_html=True)
             elif selected_col == "PhysHlth":
-                st.markdown("#### 🔷 Distribution of PhysHlth (Number of Physically Unhealthy Days in Last 30)**")
+                st.markdown("#### 🔷 **Distribution of PhysHlth (Number of Physically Unhealthy Days in Last 30)**")
                 st.markdown("""
                 Distribution: Strong right skew — very similar to MentHlth.
                 Peak at 0: Majority of the respondents report 0 physically unhealthy days.
@@ -527,7 +527,7 @@ def plotting_section():
                 """, unsafe_allow_html=True)
             
         else:
-            st.markdown("###🧠 Insights and Recommendations**")
+            st.markdown("### 🧠 **Insights and Recommendations**")
             st.markdown("""            
             The data shows trends typical of health-focused populations. 
             Most individuals have normal to slightly high BMI, with a significant portion potentially obese — reinforcing obesity’s link to diabetes. Physical and mental health are generally good, though a minority experience chronic issues, indicating potential risk groups. 
@@ -537,21 +537,21 @@ def plotting_section():
             """, unsafe_allow_html=True)
             
             if selected_col =="BMI":
-                st.markdown("#### 🔷 Distribution of BMI (Body Mass Index)**")
+                st.markdown("#### 🔷 **Distribution of BMI (Body Mass Index)**")
                 st.markdown("""
                 The BMI histogram is likely skewed toward higher values, as obesity is common in diabetes datasets.
                 A peak in the 18.5–24.9 range indicates normal weight, while peaks in the 25–30+ range suggest overweight or obesity.
                 If many individuals fall into BMI > 30, it reinforces the link between obesity and diabetes.
                 """, unsafe_allow_html=True)
             elif selected_col == "MentHlth":
-                st.markdown("#### 🔷 Distribution of MentHlth (Number of Mentally Unhealthy Days in Last 30)**")
+                st.markdown("#### 🔷 **Distribution of MentHlth (Number of Mentally Unhealthy Days in Last 30)**")
                 st.markdown("""
                 This histogram might be right-skewed, with most individuals reporting 0–5 mentally unhealthy days.
                 If there is a significant number of people with 10+ mentally unhealthy days, it suggests mental health challenges in the population.
                 Poor mental health is linked to chronic disease management, including diabetes.
                 """, unsafe_allow_html=True)
             elif selected_col == "Age":
-                st.markdown("#### 🔷 Distribution of Age**")
+                st.markdown("#### 🔷 **Distribution of Age**")
                 st.markdown("""
                 The age column is encoded, possibly in categories (e.g., 1 = young adults, 9 = middle-aged, etc.).
                 The bar chart might show peaks in certain age ranges, indicating a higher representation of certain age groups.
@@ -559,7 +559,7 @@ def plotting_section():
 
                 """, unsafe_allow_html=True)
             elif selected_col == "PhysHlth":
-                st.markdown("#### 🔷 Distribution of PhysHlth (Number of Physically Unhealthy Days in Last 30)**")
+                st.markdown("#### 🔷 **Distribution of PhysHlth (Number of Physically Unhealthy Days in Last 30)**")
                 st.markdown("""
                 The distribution is likely skewed towards 0 (indicating good physical health for most people).
                 A small number of individuals report higher values, suggesting they experienced many days of poor health.
