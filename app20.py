@@ -585,8 +585,15 @@ def plotting_section():
             hoverongaps=False
         ))
 
-        fig.update_layout(title='Correlation Heatmap', xaxis_nticks=36)
+        # Make it taller (height in pixels)
+        fig.update_layout(
+            title='Correlation Heatmap',
+            xaxis_nticks=36,
+            height=800  # <-- Change this value to control vertical size
+        )
 
+        
+        
         # Display in Streamlit
         st.title("Correlation Heatmap of Diabetic Dataset")
         st.plotly_chart(fig, use_container_width=True)
