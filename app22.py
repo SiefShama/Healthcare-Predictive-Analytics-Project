@@ -942,16 +942,13 @@ def prediction_section():
                 prediction = model.predict(df)[0]
                 result = "🟢 Likely Healthy" if prediction == 0 else "🔴 Likely Diabetic"
                 st.success(f"🧠 Model Prediction: {result}")
-
-
-                
+               
             user_input = [[
                 hb, cholesterol, bmi, heart_disease, phys_activity,
                 phys_health, gender, age, stroke, gen_health,
                 chol_check, smoker, fruits, veggies, alcohol,
                 ment_health, diff_walk
             ]]
-
 
             model_id = model_drive_ids.get(model_choice)
 
@@ -974,85 +971,70 @@ def prediction_section():
                 st.error("❌ Selected model ID is missing.")
         else:
             
+            # Step 1: Create a base dataframe with all required columns and set them to 0
+            columns = [
+                'HB', 'Cholesterol', 'BMI', 'Heart_Disease', 'PhysActivity', 'PhysHlth', 'Gender', 'Age',
+                'Stroke', 'CholCheck', 'Smoker', 'Fruits', 'Veggies', 'HvyAlcoholConsump', 'MentHlth', 'DiffWalk',
+                'Healthy_Diet_Score', 'UnHealthy_Diet_Score', 'Health_Risk_Index', 'Health_Care_Index',
+                'Health_Score_Index', 'Health_UnHealthy_Diet_Index', 'Log_Age', 'Log_BMI',
+                'BMI_Squared', 'Age_Squared',
+                'BMI_Category_Normal', 'BMI_Category_Obese', 'BMI_Category_Overweight', 'BMI_Category_Underweight',
+                'Age_Group_Elderly', 'Age_Group_Middle-aged', 'Age_Group_Senior', 'Age_Group_Young',
+                'GenHlth_1', 'GenHlth_2', 'GenHlth_3', 'GenHlth_4', 'GenHlth_5'
+            ]
+
+            feature_row = pd.DataFrame(np.zeros((1, len(columns))), columns=columns)
+
+            # Step 2: Fill direct input columns
+            feature_row['HB'] = df['HB']
+            feature_row['Cholesterol'] = df['Cholesterol']
+            feature_row['BMI'] = df['BMI']
+            feature_row['Heart_Disease'] = df['Heart_Disease']
+            feature_row['PhysActivity'] = df['PhysActivity']
+            feature_row['PhysHlth'] = df['PhysHlth']
+            feature_row['Gender'] = df['Gender']
+            feature_row['Age'] = df['Age']
+            feature_row['Stroke'] = df['Stroke']
+            feature_row['CholCheck'] = df['CholCheck']
+            feature_row['Smoker'] = df['Smoker']
+            feature_row['Fruits'] = df['Fruits']
+            feature_row['Veggies'] = df['Veggies']
+            feature_row['HvyAlcoholConsump'] = df['HvyAlcoholConsump']
+            feature_row['MentHlth'] = df['MentHlth']
+            feature_row['DiffWalk'] = df['DiffWalk']
+
+            # Step 3: Calculate engineered features
+            bmi = df['BMI'].values[0]
+            age = df['Age'].values[0]
+
+            feature_row['Healthy_Diet_Score'] = df['Fruits'].values[0] + df['Veggies'].values[0]
+            feature_row['UnHealthy_Diet_Score'] = df['Smoker'].values[0] + df['HvyAlcoholConsump'].values[0]
+            feature_row['Health_Risk_Index'] = df['PhysHlth'].values[0] + df['MentHlth'].values[0]
+            feature_row['Health_Care_Index'] = df['CholCheck'].values[0] + df['Cholesterol'].values[0]
+            feature_row['Health_Score_Index'] = feature_row['Healthy_Diet_Score'] - feature_row['UnHealthy_Diet_Score']
+            feature_row['Health_UnHealthy_Diet_Index'] = feature_row['Healthy_Diet_Score'] + feature_row['UnHealthy_Diet_Score']
+            feature_row['Log_Age'] = np.log1p(age)
+            feature_row['Log_BMI'] = np.log1p(bmi)
+            feature_row['BMI_Squared'] = bmi ** 2
+            feature_row['Age_Squared'] = age ** 2
+
+            # Step 4: BMI Category (boolean dummy)
+            feature_row['BMI_Category_Underweight'] = bmi < 18.5
+            feature_row['BMI_Category_Normal'] = 18.5 <= bmi < 25
+            feature_row['BMI_Category_Overweight'] = 25 <= bmi < 30
+            feature_row['BMI_Category_Obese'] = bmi >= 30
+
+            # Step 5: Age Groups (boolean dummy)
+            feature_row['Age_Group_Young'] = age < 30
+            feature_row['Age_Group_Middle-aged'] = 30 <= age < 50
+            feature_row['Age_Group_Senior'] = 50 <= age < 65
+            feature_row['Age_Group_Elderly'] = age >= 65
+
+            # Step 6: GenHlth one-hot encode
+            gen_val = int(df['GenHlth'].values[0])
+            feature_row[f'GenHlth_{gen_val}'] = True  # others remain False
             
-            # --- Feature Engineering on user input ---
-            dfd = df.copy()
-
-            # Dummy column needed to make Health_Risk_Index calculation consistent
-            dfd["Diabetes_State"] = 0  # Placeholder
-
-            # BMI Category
-            def classify_bmi(bmi):
-                if bmi < 18.5:
-                    return "Underweight"
-                elif 18.5 <= bmi < 24.9:
-                    return "Normal"
-                elif 25 <= bmi < 29.9:
-                    return "Overweight"
-                else:
-                    return "Obese"
-
-            dfd["BMI_Category"] = dfd["BMI"].apply(classify_bmi)
-
-            # Age Group
-            def age_group(age):
-                if age < 30:
-                    return "Young"
-                elif 30 <= age < 50:
-                    return "Middle-aged"
-                elif 50 <= age < 65:
-                    return "Senior"
-                else:
-                    return "Elderly"
-
-            dfd["Age_Group"] = dfd["Age"].apply(age_group)
-
-            # Diet scores
-            dfd["Healthy_Diet_Score"] = dfd["Fruits"] + dfd["Veggies"]
-            dfd["UnHealthy_Diet_Score"] = dfd["HvyAlcoholConsump"] + dfd["Smoker"]
-
-            # Health Risk Index
-            dfd["Health_Risk_Index"] = (
-                dfd["Heart_Disease"] + dfd["Stroke"] + dfd["DiffWalk"] +
-                dfd["Diabetes_State"] + dfd["Cholesterol"] + dfd["HB"] + dfd["UnHealthy_Diet_Score"]
-            )
-
-            # Health Care Index
-            dfd["Health_Care_Index"] = (
-                dfd["PhysActivity"] + dfd["Healthy_Diet_Score"] -
-                dfd["UnHealthy_Diet_Score"] + dfd["CholCheck"]
-            )
-
-            # Health Score Index
-            dfd["Health_Score_Index"] = (
-                dfd["MentHlth"] + dfd["GenHlth"] + dfd["PhysHlth"] + dfd["Health_Care_Index"]
-            )
-
-            # Health-Unhealthy index
-            dfd["Health_UnHealthy_Diet_Index"] = dfd["Healthy_Diet_Score"] - dfd["UnHealthy_Diet_Score"]
-
-            # Normalization for continuous features
-            for col in ["BMI", "PhysHlth", "MentHlth"]:
-                dfd[col] = (dfd[col] - dfd[col].min()) / (dfd[col].max() - dfd[col].min() + 1e-5)  # Avoid /0
-
-            # Log transform
-            dfd["Log_Age"] = np.log1p(dfd["Age"])
-            dfd["Log_BMI"] = np.log1p(dfd["BMI"])
-
-            # Polynomial features
-            dfd["BMI_Squared"] = dfd["BMI"] ** 2
-            dfd["Age_Squared"] = dfd["Age"] ** 2
-
-            # One-hot encoding
-            dfd = pd.get_dummies(dfd, columns=["BMI_Category", "Age_Group", "GenHlth"], drop_first=False)
-
-            # Align user input columns with training model columns (if necessary)
-            if 'model_features' in st.session_state:
-                expected_cols = st.session_state['model_features']
-                for col in expected_cols:
-                    if col not in dfd.columns:
-                        dfd[col] = 0  # Add missing dummy columns with 0
-                dfd = dfd[expected_cols]  # Reorder columns
+            dfd = feature_row
 
             # --- Prediction ---
             model_id = model_drive_ids.get(model_choice)
