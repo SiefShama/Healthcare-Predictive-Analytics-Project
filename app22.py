@@ -973,9 +973,15 @@ def prediction_section():
             else:
                 st.error("❌ Selected model ID is missing.")
         else:
+            
+            
+            # --- Feature Engineering on user input ---
             dfd = df.copy()
 
-            # Step 1. BMI Category
+            # Dummy column needed to make Health_Risk_Index calculation consistent
+            dfd["Diabetes_State"] = 0  # Placeholder
+
+            # BMI Category
             def classify_bmi(bmi):
                 if bmi < 18.5:
                     return "Underweight"
@@ -988,7 +994,7 @@ def prediction_section():
 
             dfd["BMI_Category"] = dfd["BMI"].apply(classify_bmi)
 
-            # Step 2. Age Group
+            # Age Group
             def age_group(age):
                 if age < 30:
                     return "Young"
@@ -996,62 +1002,61 @@ def prediction_section():
                     return "Middle-aged"
                 elif 50 <= age < 65:
                     return "Senior"
-                elif age >= 65:
+                else:
                     return "Elderly"
 
             dfd["Age_Group"] = dfd["Age"].apply(age_group)
 
-            # Step 3. Healthy Diet Score
+            # Diet scores
             dfd["Healthy_Diet_Score"] = dfd["Fruits"] + dfd["Veggies"]
-
-            # Step 4. UnHealthy Diet Score
             dfd["UnHealthy_Diet_Score"] = dfd["HvyAlcoholConsump"] + dfd["Smoker"]
 
-            # Step 5. Health Risk Index (assume Diabetes_State = 0 since not provided)
-            dfd["Diabetes_State"] = 0
+            # Health Risk Index
             dfd["Health_Risk_Index"] = (
-                dfd["Heart_Disease"] + dfd["Stroke"] + dfd["DiffWalk"]
-                + dfd["Diabetes_State"] + dfd["Cholesterol"] + dfd["HB"]
-                + dfd["UnHealthy_Diet_Score"]
+                dfd["Heart_Disease"] + dfd["Stroke"] + dfd["DiffWalk"] +
+                dfd["Diabetes_State"] + dfd["Cholesterol"] + dfd["HB"] + dfd["UnHealthy_Diet_Score"]
             )
 
-            # Step 6. Health Care Index
+            # Health Care Index
             dfd["Health_Care_Index"] = (
-                dfd["PhysActivity"] + dfd["Healthy_Diet_Score"]
-                - dfd["UnHealthy_Diet_Score"] + dfd["CholCheck"]
+                dfd["PhysActivity"] + dfd["Healthy_Diet_Score"] -
+                dfd["UnHealthy_Diet_Score"] + dfd["CholCheck"]
             )
 
-            # Step 7. Health Score Index
+            # Health Score Index
             dfd["Health_Score_Index"] = (
-                dfd["MentHlth"] + dfd["GenHlth"] + dfd["PhysHlth"]
-                + dfd["Health_Care_Index"]
+                dfd["MentHlth"] + dfd["GenHlth"] + dfd["PhysHlth"] + dfd["Health_Care_Index"]
             )
 
-            # Step 8. Health vs Unhealthy Diet Index
+            # Health-Unhealthy index
             dfd["Health_UnHealthy_Diet_Index"] = dfd["Healthy_Diet_Score"] - dfd["UnHealthy_Diet_Score"]
 
-            # Step 9. Min-Max normalization on continuous features (use fixed scaler for single input)
-            scaler = MinMaxScaler()
-            dfd[["BMI", "PhysHlth", "MentHlth"]] = scaler.fit_transform(
-                dfd[["BMI", "PhysHlth", "MentHlth"]]
-            )
+            # Normalization for continuous features
+            for col in ["BMI", "PhysHlth", "MentHlth"]:
+                dfd[col] = (dfd[col] - dfd[col].min()) / (dfd[col].max() - dfd[col].min() + 1e-5)  # Avoid /0
 
-            # Step 10. Log transform
+            # Log transform
             dfd["Log_Age"] = np.log1p(dfd["Age"])
             dfd["Log_BMI"] = np.log1p(dfd["BMI"])
 
-            # Step 11. Polynomial Features
+            # Polynomial features
             dfd["BMI_Squared"] = dfd["BMI"] ** 2
             dfd["Age_Squared"] = dfd["Age"] ** 2
 
-            # Step 12. One-hot encoding
+            # One-hot encoding
             dfd = pd.get_dummies(dfd, columns=["BMI_Category", "Age_Group", "GenHlth"], drop_first=False)
 
-            # OPTIONAL: ensure all expected columns exist (use the training dataset dfd.columns as base)
-            # For simplicity here, we assume the model handles missing columns gracefully or was trained on similar encoded structure
+            # Align user input columns with training model columns (if necessary)
+            if 'model_features' in st.session_state:
+                expected_cols = st.session_state['model_features']
+                for col in expected_cols:
+                    if col not in dfd.columns:
+                        dfd[col] = 0  # Add missing dummy columns with 0
+                dfd = dfd[expected_cols]  # Reorder columns
 
-            # --- Prediction using engineered features ---
+            # --- Prediction ---
             model_id = model_drive_ids.get(model_choice)
+
             if model_id:
                 model = load_model_from_drive(model_id)
                 if model:
