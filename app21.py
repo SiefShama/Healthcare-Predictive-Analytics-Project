@@ -635,6 +635,8 @@ def prediction_section():
     
 
     
+
+
     
     if model_type == "Classification":
         model_data = {
@@ -669,7 +671,7 @@ def prediction_section():
         model_drive_ids = model_drive_ids_C
 
 
-    elif model_type == "Regression":
+    else:
         model_data = {
             "Model": list(model_drive_ids_R.keys()),
             "Train R²": [0.3505, 0.9632, 0.8801, 0.4369, 0.4003, 0.5194],
@@ -701,7 +703,41 @@ def prediction_section():
     model_choice = st.selectbox("🔍 Select a model to use for prediction", df_models["Model"].tolist())
     model = load_model_from_drive(model_drive_ids[model_choice])
     st.markdown(f"✅ **You selected:** `{model_choice}`")
+    
+    def calculate_bmi(weight, height_cm):
+        height_m = height_cm / 100
+        bmi = weight / (height_m ** 2)
+        return round(bmi, 2)
 
+    def get_bmi_category(bmi):
+        if bmi < 18.5:
+            return "Underweight"
+        elif 18.5 <= bmi < 24.9:
+            return "Normal weight"
+        elif 25 <= bmi < 29.9:
+            return "Overweight"
+        else:
+            return "Obesity"
+
+    # Streamlit UI
+    st.markdown("#### 💪 BMI Calculator")
+
+    # User Inputs
+    weight = st.number_input("Enter your weight (kg)", min_value=10.0, max_value=300.0, value=70.0)
+    height = st.number_input("Enter your height (cm)", min_value=50.0, max_value=250.0, value=170.0)
+
+    # Calculate button
+    if st.button("Calculate BMI"):
+        bmi = calculate_bmi(weight, height)
+        category = get_bmi_category(bmi)
+
+        st.success(f"Your BMI is **{bmi}**")
+        st.info(f"This is considered **{category}**.")
+
+        # Optional visual feedback
+        st.progress(min(100, int(bmi * 2)))  # just for fun visual
+    
+    
     with st.form("diabetes_form"):
         st.subheader("Health Information")
         col1, col2 = st.columns(2)
@@ -789,41 +825,6 @@ def prediction_section():
                 st.error("❌ Model could not be loaded.")
         else:
             st.error("❌ Selected model ID is missing.")
-            
-        if model_type == "Calculate BMI":
-
-            def calculate_bmi(weight, height_cm):
-                height_m = height_cm / 100
-                bmi = weight / (height_m ** 2)
-                return round(bmi, 2)
-
-            def get_bmi_category(bmi):
-                if bmi < 18.5:
-                    return "Underweight"
-                elif 18.5 <= bmi < 24.9:
-                    return "Normal weight"
-                elif 25 <= bmi < 29.9:
-                    return "Overweight"
-                else:
-                    return "Obesity"
-
-            # Streamlit UI
-            st.title("💪 BMI Calculator")
-
-            # User Inputs
-            weight = st.number_input("Enter your weight (kg)", min_value=10.0, max_value=300.0, value=70.0)
-            height = st.number_input("Enter your height (cm)", min_value=50.0, max_value=250.0, value=170.0)
-
-            # Calculate button
-            if st.button("Calculate BMI"):
-                bmi = calculate_bmi(weight, height)
-                category = get_bmi_category(bmi)
-
-                st.success(f"Your BMI is **{bmi}**")
-                st.info(f"This is considered **{category}**.")
-
-                # Optional visual feedback
-                st.progress(min(100, int(bmi * 2)))  # just for fun visual
 
 
 
