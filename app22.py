@@ -7,6 +7,7 @@ import os
 import requests
 import joblib
 from io import BytesIO
+from sklearn.preprocessing import MinMaxScaler
 
 # ------------------ Caching Functions ------------------
 @st.cache_data
