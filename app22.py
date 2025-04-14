@@ -717,68 +717,133 @@ def prediction_section():
     
 
 
-    
-    if model_type == "Classification":
-        model_data = {
-            "Model": list(model_drive_ids_C.keys()),
-            "Train Acc": [0.7895, 0.7875, 0.8002, 0.8327, 0.9825, 0.9825, 0.8128, 0.8079, 0.7897],
-            "Test Acc": [0.7866, 0.7824, 0.7957, 0.7682, 0.6926, 0.7774, 0.8027, 0.8026, 0.7861],
-            "R²": [0.1022, 0.0845, 0.1402, 0.0247, -0.2933, 0.0631, 0.1699, 0.1694, 0.1001],
-            "Notes": [
-                "Good generalization. Slight drop from train to test.",
-                "Balanced performance.",
-                "Strong performance.",
-                "Overfitting suspected.",
-                "Severe overfitting.",
-                "High training score, lower generalization.",
-                "Best generalization.",
-                "Similar to XGB. Stable and well-balanced.",
-                "Good generalization, comparable to pipe_DD."
-            ]
-        }
-        
-        df_models = pd.DataFrame(model_data)
-        st.dataframe(df_models, use_container_width=True)
-        
-        # Summary
-        st.markdown("### 🏆 **Top Classifier Performers**")
-        st.markdown("""
-        - **XGB & MLP**: Excellent balance of accuracy and generalization.
-        - **Logistic Regression** & Pipeline: Solid results.
-        - **Tree models**: Watch for overfitting.
-        """, unsafe_allow_html=True)
-        
-        model_drive_ids = model_drive_ids_C
+    if Data_type == "Original":
+        if model_type == "Classification":
+            model_data = {
+                "Model": list(model_drive_ids_C.keys()),
+                "Train Acc": [0.7895, 0.7875, 0.8002, 0.8327, 0.9825, 0.9825, 0.8128, 0.8079, 0.7897],
+                "Test Acc": [0.7866, 0.7824, 0.7957, 0.7682, 0.6926, 0.7774, 0.8027, 0.8026, 0.7861],
+                "R²": [0.1022, 0.0845, 0.1402, 0.0247, -0.2933, 0.0631, 0.1699, 0.1694, 0.1001],
+                "Notes": [
+                    "Good generalization. Slight drop from train to test.",
+                    "Balanced performance.",
+                    "Strong performance.",
+                    "Overfitting suspected.",
+                    "Severe overfitting.",
+                    "High training score, lower generalization.",
+                    "Best generalization.",
+                    "Similar to XGB. Stable and well-balanced.",
+                    "Good generalization, comparable to pipe_DD."
+                ]
+            }
+            
+            df_models = pd.DataFrame(model_data)
+            st.dataframe(df_models, use_container_width=True)
+            
+            # Summary
+            st.markdown("### 🏆 **Top Classifier Performers**")
+            st.markdown("""
+            - **XGB & MLP**: Excellent balance of accuracy and generalization.
+            - **Logistic Regression** & Pipeline: Solid results.
+            - **Tree models**: Watch for overfitting.
+            """, unsafe_allow_html=True)
+            
+            model_drive_ids = model_drive_ids_C
 
 
+        else:
+            model_data = {
+                "Model": list(model_drive_ids_R.keys()),
+                "Train R²": [0.3505, 0.9632, 0.8801, 0.4369, 0.4003, 0.5194],
+                "Test R²": [0.3398, -0.2958, 0.3001, 0.3928, 0.3846, 0.2679],
+                "Notes": [
+                    "Moderate performance. Better than basic baseline.",
+                    "Severe overfitting. Likely memorizing training data.",
+                    "Overfitting. Poor test R² compared to training.",
+                    "Best performing regressor. Decent generalization.",
+                    "Very close to XGB. Consistent and generalizable.",
+                    "Weaker test performance. Likely impacted by local sensitivity of KNN."
+                ]
+            }
+            
+            df_models = pd.DataFrame(model_data)
+            st.dataframe(df_models, use_container_width=True)
+            
+            model_drive_ids = model_drive_ids_R
+            
+            # Analysis summary
+            st.markdown("### 🏆 **Top Regressor Performers**")
+            st.markdown("""
+            - **XGB Regressor** (`xgbr_DD`) and **MLP Regressor** (`mlpr_DD`) show **the most stable performance** across training and test sets, with R² values near 0.39.
+            - **Tree-based regressors** (`treer_DD`, `rfr_DD`) suffer from severe **overfitting**.
+            - **`regressor_DD`** also performs moderately well but is outperformed by `xgbr_DD`.
+            """, unsafe_allow_html=True)
+            
     else:
-        model_data = {
-            "Model": list(model_drive_ids_R.keys()),
-            "Train R²": [0.3505, 0.9632, 0.8801, 0.4369, 0.4003, 0.5194],
-            "Test R²": [0.3398, -0.2958, 0.3001, 0.3928, 0.3846, 0.2679],
-            "Notes": [
-                "Moderate performance. Better than basic baseline.",
-                "Severe overfitting. Likely memorizing training data.",
-                "Overfitting. Poor test R² compared to training.",
-                "Best performing regressor. Decent generalization.",
-                "Very close to XGB. Consistent and generalizable.",
-                "Weaker test performance. Likely impacted by local sensitivity of KNN."
-            ]
-        }
+        if model_type == "Classification":
+            model_data = {
+                "Model": list(model_drive_ids_C.keys()),
+                "Train Acc": [1.0000, 1.0000, 1.0000, 1.0000, 1.0000, 0.8744, 0.8349, "–", 0.7983],
+                "Test Acc": [1.0000, 1.0000, 1.0000, 1.0000, 0.9456, 0.8213, 0.8297, 0.7984, 0.7941],
+                "R²": [1.0000, 1.0000, 1.0000, 1.0000, 0.7700, 0.2500, 0.2800, 0.1500, 0.1300],
+                "Notes": [
+                    "Perfect scores; very likely overfitting or data leakage.",
+                    "Excellent, but suspiciously flawless — audit for leakage.",
+                    "Unusually perfect — consider validating with cross-validation.",
+                    "Classic overfitting behavior from decision trees.",
+                    "Strong performance; better generalization than overfitted models.",
+                    "Decent generalization; may benefit from tuning `k` or scaling.",
+                    "Stable and interpretable; great baseline model.",
+                    "Biased toward class 0; weak on class 1 recall (0.71).",
+                    "Balanced but underwhelming; kernel tuning recommended."
+                ]
+            }
+            
+            df_models = pd.DataFrame(model_data)
+            st.dataframe(df_models, use_container_width=True)
+            
+            # Summary
+            st.markdown("### 🏆 **Top Classifier Performers**")
+            st.markdown("""
+            - `rf_D`, `logr_D`, and `knn_D` offer **realistic and generalizable performance**.
+            - `xgb_D` and `mlp_D` show perfect results but should be **audited for overfitting**.
+            - `svc_D` and `gnb_D` may need **hyperparameter tuning or feature engineering**.
+
+            """, unsafe_allow_html=True)
+            
+            model_drive_ids = model_drive_ids_C
+
+
+        else:
+            model_data = {
+                "Model": list(model_drive_ids_R.keys()),
+                "Train R²": [1.0000, 0.9987, 0.9996, 0.9997, 0.9620, "–"],
+                "Test R²": [1.0000, 0.9987, 0.9996, 0.9997, 0.9620, 0.4400],
+                "Notes": [
+                    "Perfect R² — requires overfitting check.",
+                    "Excellent predictive power; validate against leakage.",
+                    "Similar to XGB — highly predictive but possibly overfitted.",
+                    "Extremely high R², classic sign of memorization.",
+                    "Strong generalization and lower risk of overfitting.",
+                    "Poor generalization — may need tuning or scaling."
+                ]
+            }
+            
+            df_models = pd.DataFrame(model_data)
+            st.dataframe(df_models, use_container_width=True)
+            
+            model_drive_ids = model_drive_ids_R
+            
+            # Analysis summary
+            st.markdown("### 🏆 **Top Regressor Performers**")
+            st.markdown("""
+            - `xgbr_D`, `mlpr_D`, and `rfr_D` deliver **high R² scores**; monitor for overfitting.  
+            - `mlpr_D` is particularly **promising with strong generalization**.  
+            - `knnr_D` shows weak results; **sensitive to noise and scaling**.
+            """, unsafe_allow_html=True)
+            
+
         
-        df_models = pd.DataFrame(model_data)
-        st.dataframe(df_models, use_container_width=True)
-        
-        model_drive_ids = model_drive_ids_R
-        
-        # Analysis summary
-        st.markdown("### 🏆 **Top Regressor Performers**")
-        st.markdown("""
-        - **XGB Regressor** (`xgbr_DD`) and **MLP Regressor** (`mlpr_DD`) show **the most stable performance** across training and test sets, with R² values near 0.39.
-        - **Tree-based regressors** (`treer_DD`, `rfr_DD`) suffer from severe **overfitting**.
-        - **`regressor_DD`** also performs moderately well but is outperformed by `xgbr_DD`.
-        """, unsafe_allow_html=True)
-    
     
     model_choice = st.selectbox("🔍 Select a model to use for prediction", df_models["Model"].tolist())
     model = load_model_from_drive(model_drive_ids[model_choice])
