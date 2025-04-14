@@ -597,66 +597,66 @@ def plotting_section():
         st.plotly_chart(fig, use_container_width=True)
         
         # Display with Streamlit
-            if dataset_version == "Start":
-                
-                st.markdown("""
-                ### 🧠 Key Observations
+        if dataset_version == "Start":
+            
+            st.markdown("""
+            ### 🧠 Key Observations
 
-                #### 🔵 Strong Positive Correlations
-                - **Diagonal line**: Every variable is perfectly correlated with itself (**correlation = 1**). This is expected and appears as a deep blue diagonal.
-                - **Diabetes_State and HB (Hemoglobin)**: Very strong positive correlation, suggesting high hemoglobin levels may be strongly linked to diabetic state in this dataset.
-                - **HB, Cholesterol, and BMI**: All show positive correlations among themselves, which is medically logical since these are often interconnected health metrics.
+            #### 🔵 Strong Positive Correlations
+            - **Diagonal line**: Every variable is perfectly correlated with itself (**correlation = 1**). This is expected and appears as a deep blue diagonal.
+            - **Diabetes_State and HB (Hemoglobin)**: Very strong positive correlation, suggesting high hemoglobin levels may be strongly linked to diabetic state in this dataset.
+            - **HB, Cholesterol, and BMI**: All show positive correlations among themselves, which is medically logical since these are often interconnected health metrics.
 
-                #### 🔴 Negative Correlations
-                - **PhysActivity vs BMI, Heart_Disease, and GenHlth**:  
-                  Physical activity is slightly negatively correlated with BMI and heart disease, indicating more active individuals tend to have lower BMI and potentially better heart health.
-                - **MentHlth vs DiffWalk and GenHlth**:  
-                  Poor mental health appears associated with walking difficulty and poor general health, which may reflect the bidirectional relationship between mental and physical health.
+            #### 🔴 Negative Correlations
+            - **PhysActivity vs BMI, Heart_Disease, and GenHlth**:  
+              Physical activity is slightly negatively correlated with BMI and heart disease, indicating more active individuals tend to have lower BMI and potentially better heart health.
+            - **MentHlth vs DiffWalk and GenHlth**:  
+              Poor mental health appears associated with walking difficulty and poor general health, which may reflect the bidirectional relationship between mental and physical health.
 
-                #### ⚖️ Weak or No Correlations
-                - **Gender** with most variables: Gender shows weak or no linear correlation with most health indicators, possibly because other factors have stronger direct effects.
-                - **Diet-related features (Fruits, Veggies)**: These seem to have minimal correlation with major health indicators like Diabetes_State or Heart_Disease — linear relationships are weak, though non-linear or long-term effects might still exist.
-                ### 📌 Summary
-                This heatmap provides a high-level overview of how features relate to one another in a health dataset. While some strong and interpretable correlations are visible (e.g., Diabetes_State with HB), many health and lifestyle factors show only weak linear associations. This reinforces the complexity of health outcomes and the potential value of more complex modeling approaches (e.g., decision trees, neural networks) that capture non-linear interactions.
+            #### ⚖️ Weak or No Correlations
+            - **Gender** with most variables: Gender shows weak or no linear correlation with most health indicators, possibly because other factors have stronger direct effects.
+            - **Diet-related features (Fruits, Veggies)**: These seem to have minimal correlation with major health indicators like Diabetes_State or Heart_Disease — linear relationships are weak, though non-linear or long-term effects might still exist.
+            ### 📌 Summary
+            This heatmap provides a high-level overview of how features relate to one another in a health dataset. While some strong and interpretable correlations are visible (e.g., Diabetes_State with HB), many health and lifestyle factors show only weak linear associations. This reinforces the complexity of health outcomes and the potential value of more complex modeling approaches (e.g., decision trees, neural networks) that capture non-linear interactions.
 
-                """)
+            """)
 
+       
+        else:
            
-            else:
-               
-                st.markdown("""
-                ### 🔍 Key Insights from the Plot
+            st.markdown("""
+            ### 🔍 Key Insights from the Plot
 
-                #### ✅ Strongest Positive Correlations
-                - **Diabetes_State and HB (Hemoglobin)**  
-                  *Interpretation:* Higher hemoglobin levels are positively associated with diabetic status. This could reflect physiological changes in individuals with diabetes, such as altered red blood cell turnover or hypoxia responses.
+            #### ✅ Strongest Positive Correlations
+            - **Diabetes_State and HB (Hemoglobin)**  
+              *Interpretation:* Higher hemoglobin levels are positively associated with diabetic status. This could reflect physiological changes in individuals with diabetes, such as altered red blood cell turnover or hypoxia responses.
 
-                - **Age and Stroke**  
-                  A moderate positive correlation—older age is associated with increased stroke risk, aligning with medical expectations.
+            - **Age and Stroke**  
+              A moderate positive correlation—older age is associated with increased stroke risk, aligning with medical expectations.
 
-                - **GenHlth and PhysHlth, MentHlth, DiffWalk**  
-                  These variables are interrelated as they reflect physical, mental, and general health. Poor general health is linked to worse physical health, more mental health issues, and difficulty walking.
+            - **GenHlth and PhysHlth, MentHlth, DiffWalk**  
+              These variables are interrelated as they reflect physical, mental, and general health. Poor general health is linked to worse physical health, more mental health issues, and difficulty walking.
 
-                #### ❌ Strongest Negative Correlations
-                - **Age and PhysActivity**  
-                  Suggests that older individuals tend to engage in less physical activity, which is consistent with aging-related limitations.
+            #### ❌ Strongest Negative Correlations
+            - **Age and PhysActivity**  
+              Suggests that older individuals tend to engage in less physical activity, which is consistent with aging-related limitations.
 
-                - **Veggies and BMI, Cholesterol, Heart_Disease**  
-                  Weak to moderate negative correlations, implying that greater vegetable intake may be associated with healthier outcomes, though the linear relationships are not very strong.
+            - **Veggies and BMI, Cholesterol, Heart_Disease**  
+              Weak to moderate negative correlations, implying that greater vegetable intake may be associated with healthier outcomes, though the linear relationships are not very strong.
 
-                - **CholCheck and Stroke**  
-                  Slight negative correlation, which might imply that those who check their cholesterol regularly are slightly less likely to experience stroke—possibly due to better preventive care.
+            - **CholCheck and Stroke**  
+              Slight negative correlation, which might imply that those who check their cholesterol regularly are slightly less likely to experience stroke—possibly due to better preventive care.
 
-                #### 🧠 General Observations
-                - **Weak correlations dominate the plot**: Most values are between **-0.2 and +0.2**, suggesting that many of these relationships are weak or non-linear.
+            #### 🧠 General Observations
+            - **Weak correlations dominate the plot**: Most values are between **-0.2 and +0.2**, suggesting that many of these relationships are weak or non-linear.
 
-                - **Lifestyle variables** like *Smoker*, *Fruits*, *Veggies*, and *HvAlcoholConsump* have minimal direct linear impact on chronic disease indicators, possibly due to:
-                  - Measurement limitations (e.g., self-reported intake/frequency).
-                  - Need for longer-term or cumulative data.
-                  - The influence of complex non-linear interactions, which aren’t captured by correlation alone.
-                ### 📌 Summary
-                This heatmap provides a foundational understanding of variable relationships in the dataset. While most correlations are weak, several important patterns emerge—especially in age-related health outcomes, diabetes predictors, and lifestyle influences on general health. However, given the weak linear correlations for many features, non-linear modeling approaches (e.g., decision trees, random forest, neural networks) may better capture the true structure of the data.
-                """)
+            - **Lifestyle variables** like *Smoker*, *Fruits*, *Veggies*, and *HvAlcoholConsump* have minimal direct linear impact on chronic disease indicators, possibly due to:
+              - Measurement limitations (e.g., self-reported intake/frequency).
+              - Need for longer-term or cumulative data.
+              - The influence of complex non-linear interactions, which aren’t captured by correlation alone.
+            ### 📌 Summary
+            This heatmap provides a foundational understanding of variable relationships in the dataset. While most correlations are weak, several important patterns emerge—especially in age-related health outcomes, diabetes predictors, and lifestyle influences on general health. However, given the weak linear correlations for many features, non-linear modeling approaches (e.g., decision trees, random forest, neural networks) may better capture the true structure of the data.
+            """)
 
             
 
