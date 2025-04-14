@@ -1051,7 +1051,7 @@ def prediction_section():
             # For simplicity here, we assume the model handles missing columns gracefully or was trained on similar encoded structure
 
             # --- Prediction using engineered features ---
-            
+            model_id = model_drive_ids.get(model_choice)
             if model_id:
                 model = load_model_from_drive(model_id)
                 if model:
