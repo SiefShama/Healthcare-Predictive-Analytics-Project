@@ -609,7 +609,7 @@ def prediction_section():
     st.title("🩺 Diabetes Risk Prediction Form")
     st.markdown("Fill in the details below to record your health indicators.")
     
-    model_type = st.sidebar.selectbox("Choose Model Type:", ["Classification", "Regression","Calculate BMI"])
+    model_type = st.sidebar.selectbox("Choose Model Type:", ["Classification", "Regression"])
 
     model_drive_ids_C = {
         "pipe_DD": "1-xCpVwzAhJhKuU0zgch_x5aDvEvE4B0D",
