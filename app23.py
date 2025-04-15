@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import plotly.graph_objects as go
+import plotly.figure_factory as ff
 from scipy.stats import gaussian_kde
 import os
 import requests
