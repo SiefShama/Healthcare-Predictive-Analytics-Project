@@ -7,6 +7,16 @@ import os
 import requests
 import joblib
 from io import BytesIO
+import matplotlib.pyplot as plt
+from sklearn.metrics import (
+    r2_score, mean_absolute_error, mean_squared_error,
+    accuracy_score, precision_score, recall_score, f1_score,
+    classification_report, confusion_matrix, roc_auc_score, roc_curve
+)
+import seaborn as sns
+from sklearn.model_selection import train_test_split,  # Split dataset into training and testing sets
+
+
 
 # ------------------ Caching Functions ------------------
 @st.cache_data
