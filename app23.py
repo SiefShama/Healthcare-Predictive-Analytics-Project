@@ -712,19 +712,20 @@ def prediction_section():
     if model_type == "Classification":
         model_data = {
             "Model": list(model_drive_ids_C.keys()),
-            "Train Acc": [0.7895, 0.7875, 0.8002, 0.8327, 0.9825, 0.9825, 0.8128, 0.8079, 0.7897],
-            "Test Acc": [0.7866, 0.7824, 0.7957, 0.7682, 0.6926, 0.7774, 0.8027, 0.8026, 0.7861],
-            "R²": [0.1022, 0.0845, 0.1402, 0.0247, -0.2933, 0.0631, 0.1699, 0.1694, 0.1001],
+            "Accuracy": [0.7866, 0.7824, 0.7957, 0.7682, 0.6933, 0.7775, 0.8027, 0.8023, 0.7861],
+            "Precision": [0.7589, 0.7223, 0.7641, 0.7009, 0.6064, 0.7001, 0.7470, 0.7490, 0.7589],
+            "Recall": [0.6614, 0.7156, 0.6864, 0.7047, 0.6020, 0.7482, 0.7449, 0.7394, 0.6596],
+            "F1 Score": [0.7068, 0.7189, 0.7232, 0.7028, 0.6042, 0.7234, 0.7460, 0.7442, 0.7058],
             "Notes": [
-                "Good generalization. Slight drop from train to test.",
-                "Balanced performance.",
-                "Strong performance.",
-                "Overfitting suspected.",
-                "Severe overfitting.",
-                "High training score, lower generalization.",
-                "Best generalization.",
-                "Similar to XGB. Stable and well-balanced.",
-                "Good generalization, comparable to pipe_DD."
+                "Balanced, slightly favors class 0",
+                "Solid baseline; consistent class performance",
+                "Strong, but no predict_proba for ROC",
+                "Overfitting likely; big gap in train vs. test",
+                "Very high training score (0.9825); severe overfitting",
+                "Much more generalizable than single tree",
+                "⚡ Best-performing model in classification",
+                "Close second to XGBoost; stable performer",
+                "Good baseline model, well-balanced"
             ]
         }
         
@@ -734,9 +735,11 @@ def prediction_section():
         # Summary
         st.markdown("### 🏆 **Top Classifier Performers**")
         st.markdown("""
-        - **XGB & MLP**: Excellent balance of accuracy and generalization.
-        - **Logistic Regression** & Pipeline: Solid results.
-        - **Tree models**: Watch for overfitting.
+        - **Top Performers**: `xgb_DD` and `mlp_DD` show the best overall performance with accuracy above 0.80 and balanced precision-recall.
+        - **Baseline Strong**: `logr_DD` and `pipe_DD` provide a strong logistic foundation.
+        - **Overfitting Warning**: `tree_DD` massively overfits, showing a huge training score gap (0.9825 vs. 0.6933).
+        - **Random Forest** (`rf_DD`) and **SVM** (`svc_DD`) are reliable but slightly behind XGB and MLP.
+        - **Naive Bayes** (`gnb_DD`) is surprisingly competitive given its simplicity.
         """, unsafe_allow_html=True)
         
         model_drive_ids = model_drive_ids_C
@@ -745,15 +748,16 @@ def prediction_section():
     else:
         model_data = {
             "Model": list(model_drive_ids_R.keys()),
-            "Train R²": [0.3505, 0.9632, 0.8801, 0.4369, 0.4003, 0.5194],
-            "Test R²": [0.3398, -0.2958, 0.3001, 0.3928, 0.3846, 0.2679],
+            "R² Score": [0.3398, -0.2955, 0.2984, 0.3928, 0.3904, 0.2679],
+            "MAE": [0.3129, 0.3121, 0.3090, 0.2845, 0.2835, 0.2905],
+            "RMSE": [0.3961, 0.5549, 0.4083, 0.3799, 0.3806, 0.4171],
             "Notes": [
-                "Moderate performance. Better than basic baseline.",
-                "Severe overfitting. Likely memorizing training data.",
-                "Overfitting. Poor test R² compared to training.",
-                "Best performing regressor. Decent generalization.",
-                "Very close to XGB. Consistent and generalizable.",
-                "Weaker test performance. Likely impacted by local sensitivity of KNN."
+                "Base regressor",
+                "❌ Poor generalization – severe overfit",
+                "Weak performance despite high training",
+                "🔼 Best overall regressor",
+                "Close second to XGBR",
+                "Underperforms, suggests lack of complexity handling"
             ]
         }
         
@@ -765,9 +769,10 @@ def prediction_section():
         # Analysis summary
         st.markdown("### 🏆 **Top Regressor Performers**")
         st.markdown("""
-        - **XGB Regressor** (`xgbr_DD`) and **MLP Regressor** (`mlpr_DD`) show **the most stable performance** across training and test sets, with R² values near 0.39.
-        - **Tree-based regressors** (`treer_DD`, `rfr_DD`) suffer from severe **overfitting**.
-        - **`regressor_DD`** also performs moderately well but is outperformed by `xgbr_DD`.
+        - **Best Models**: `xgbr_DD` and `mlpr_DD` outperform others in R² and MAE, providing the most accurate regression predictions.
+        - **Tree-based Regression** (`treer_DD`) fails significantly on unseen data — potential severe overfitting.
+        - **Random Forest Regressor** underperforms compared to expectations, possibly due to hyperparameter issues or feature importance inconsistency.
+        - **Base Regression** (`regressor_DD`) serves as a useful lower bound reference.
         """, unsafe_allow_html=True)
     
     
@@ -938,19 +943,20 @@ def Models_Testing_section():
     if model_type == "Classification":
         model_data = {
             "Model": list(model_drive_ids_C.keys()),
-            "Train Acc": [0.7895, 0.7875, 0.8002, 0.8327, 0.9825, 0.9825, 0.8128, 0.8079, 0.7897],
-            "Test Acc": [0.7866, 0.7824, 0.7957, 0.7682, 0.6926, 0.7774, 0.8027, 0.8026, 0.7861],
-            "R²": [0.1022, 0.0845, 0.1402, 0.0247, -0.2933, 0.0631, 0.1699, 0.1694, 0.1001],
+            "Accuracy": [0.7866, 0.7824, 0.7957, 0.7682, 0.6933, 0.7775, 0.8027, 0.8023, 0.7861],
+            "Precision": [0.7589, 0.7223, 0.7641, 0.7009, 0.6064, 0.7001, 0.7470, 0.7490, 0.7589],
+            "Recall": [0.6614, 0.7156, 0.6864, 0.7047, 0.6020, 0.7482, 0.7449, 0.7394, 0.6596],
+            "F1 Score": [0.7068, 0.7189, 0.7232, 0.7028, 0.6042, 0.7234, 0.7460, 0.7442, 0.7058],
             "Notes": [
-                "Good generalization. Slight drop from train to test.",
-                "Balanced performance.",
-                "Strong performance.",
-                "Overfitting suspected.",
-                "Severe overfitting.",
-                "High training score, lower generalization.",
-                "Best generalization.",
-                "Similar to XGB. Stable and well-balanced.",
-                "Good generalization, comparable to pipe_DD."
+                "Balanced, slightly favors class 0",
+                "Solid baseline; consistent class performance",
+                "Strong, but no predict_proba for ROC",
+                "Overfitting likely; big gap in train vs. test",
+                "Very high training score (0.9825); severe overfitting",
+                "Much more generalizable than single tree",
+                "⚡ Best-performing model in classification",
+                "Close second to XGBoost; stable performer",
+                "Good baseline model, well-balanced"
             ]
         }
         
@@ -960,9 +966,11 @@ def Models_Testing_section():
         # Summary
         st.markdown("### 🏆 **Top Classifier Performers**")
         st.markdown("""
-        - **XGB & MLP**: Excellent balance of accuracy and generalization.
-        - **Logistic Regression** & Pipeline: Solid results.
-        - **Tree models**: Watch for overfitting.
+        - **Top Performers**: `xgb_DD` and `mlp_DD` show the best overall performance with accuracy above 0.80 and balanced precision-recall.
+        - **Baseline Strong**: `logr_DD` and `pipe_DD` provide a strong logistic foundation.
+        - **Overfitting Warning**: `tree_DD` massively overfits, showing a huge training score gap (0.9825 vs. 0.6933).
+        - **Random Forest** (`rf_DD`) and **SVM** (`svc_DD`) are reliable but slightly behind XGB and MLP.
+        - **Naive Bayes** (`gnb_DD`) is surprisingly competitive given its simplicity.
         """, unsafe_allow_html=True)
         
         model_drive_ids = model_drive_ids_C
@@ -971,15 +979,16 @@ def Models_Testing_section():
     else:
         model_data = {
             "Model": list(model_drive_ids_R.keys()),
-            "Train R²": [0.3505, 0.9632, 0.8801, 0.4369, 0.4003, 0.5194],
-            "Test R²": [0.3398, -0.2958, 0.3001, 0.3928, 0.3846, 0.2679],
+            "R² Score": [0.3398, -0.2955, 0.2984, 0.3928, 0.3904, 0.2679],
+            "MAE": [0.3129, 0.3121, 0.3090, 0.2845, 0.2835, 0.2905],
+            "RMSE": [0.3961, 0.5549, 0.4083, 0.3799, 0.3806, 0.4171],
             "Notes": [
-                "Moderate performance. Better than basic baseline.",
-                "Severe overfitting. Likely memorizing training data.",
-                "Overfitting. Poor test R² compared to training.",
-                "Best performing regressor. Decent generalization.",
-                "Very close to XGB. Consistent and generalizable.",
-                "Weaker test performance. Likely impacted by local sensitivity of KNN."
+                "Base regressor",
+                "❌ Poor generalization – severe overfit",
+                "Weak performance despite high training",
+                "🔼 Best overall regressor",
+                "Close second to XGBR",
+                "Underperforms, suggests lack of complexity handling"
             ]
         }
         
@@ -991,9 +1000,10 @@ def Models_Testing_section():
         # Analysis summary
         st.markdown("### 🏆 **Top Regressor Performers**")
         st.markdown("""
-        - **XGB Regressor** (`xgbr_DD`) and **MLP Regressor** (`mlpr_DD`) show **the most stable performance** across training and test sets, with R² values near 0.39.
-        - **Tree-based regressors** (`treer_DD`, `rfr_DD`) suffer from severe **overfitting**.
-        - **`regressor_DD`** also performs moderately well but is outperformed by `xgbr_DD`.
+        - **Best Models**: `xgbr_DD` and `mlpr_DD` outperform others in R² and MAE, providing the most accurate regression predictions.
+        - **Tree-based Regression** (`treer_DD`) fails significantly on unseen data — potential severe overfitting.
+        - **Random Forest Regressor** underperforms compared to expectations, possibly due to hyperparameter issues or feature importance inconsistency.
+        - **Base Regression** (`regressor_DD`) serves as a useful lower bound reference.
         """, unsafe_allow_html=True)
     
     
@@ -1001,6 +1011,11 @@ def Models_Testing_section():
     model = load_model_from_drive(model_drive_ids[model_choice])
     st.markdown(f"✅ **You selected:** `{model_choice}`")
     
+
+    if model is None:
+        st.error("❌ Selected model could not be loaded. Please check the selection.")
+        st.stop()
+
     print(f"🔍 Evaluating model: {model_choice}")
     train_score = model.score(X_DD_train, y_DD_train)
     test_score = model.score(X_DD_test, y_DD_test)
