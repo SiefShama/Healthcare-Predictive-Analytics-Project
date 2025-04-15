@@ -1004,7 +1004,48 @@ def Models_Testing_section():
 
     print(f"Training Score: {train_score:.4f}")
     print(f"Test Score    : {test_score:.4f}")
+    
+    def plot_roc_curve(y_true, y_proba, title="ROC Curve"):
+        fpr, tpr, _ = roc_curve(y_true, y_proba)
+        roc_auc = auc(fpr, tpr)
 
+        fig = go.Figure()
+        fig.add_trace(go.Scatter(x=fpr, y=tpr, mode='lines', name='ROC Curve', line=dict(color='blue')))
+        fig.add_trace(go.Scatter(x=[0, 1], y=[0, 1], mode='lines', name='Random Baseline', line=dict(dash='dash')))
+        
+        fig.update_layout(
+            title=f"{title} (AUC = {roc_auc:.2f})",
+            xaxis_title='False Positive Rate',
+            yaxis_title='True Positive Rate',
+            xaxis=dict(scaleanchor="y", scaleratio=1),
+            yaxis=dict(constrain='domain'),
+            width=700,
+            height=500
+        )
+        st.plotly_chart(fig, use_container_width=True)
+        
+        
+    def plot_confusion_matrix(y_true, y_pred, title="Confusion Matrix"):
+        cm = confusion_matrix(y_true, y_pred)
+        labels = ["Negative", "Positive"]
+        
+        z = cm
+        x = labels
+        y = labels
+
+        z_text = [[str(y) for y in x] for x in z]
+
+        fig = ff.create_annotated_heatmap(
+            z=z, x=x, y=y, annotation_text=z_text, colorscale='Blues', showscale=True
+        )
+        fig.update_layout(
+            title_text=title,
+            xaxis=dict(title="Predicted Label"),
+            yaxis=dict(title="True Label")
+        )
+        st.plotly_chart(fig, use_container_width=True)
+    
+    
     # === Classification ===
     if model_type == "Classification":
         acc = accuracy_score(y_DD_test, y_pred)
@@ -1018,13 +1059,15 @@ def Models_Testing_section():
         print("\nClassification Report:")
         print(classification_report(y_DD_test, y_pred, zero_division=0))
 
+        st.markdown("### 🔍 **Confusion Matrix**")
         plot_confusion_matrix(y_DD_test, y_pred, f"{model_choice} - Confusion Matrix")
 
         if hasattr(model, "predict_proba"):
             y_prob = model.predict_proba(X_DD_test)[:, 1]
+            st.markdown("### 🧪 **ROC Curve**")
             plot_roc_curve(y_DD_test, y_prob, f"{model_choice} - ROC Curve")
         else:
-            print("ROC Curve skipped: Model has no predict_proba")
+            st.warning("ROC Curve skipped: Model has no predict_proba method")
 
     # === Regression ===
     else:
