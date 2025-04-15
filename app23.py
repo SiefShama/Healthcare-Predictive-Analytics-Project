@@ -998,39 +998,39 @@ def Models_Testing_section():
     st.markdown(f"✅ **You selected:** `{model_choice}`")
     
     print(f"🔍 Evaluating model: {model_choice}")
-    train_score = model.score(X_D_train, y_D_train)
-    test_score = model.score(X_D_test, y_D_test)
-    y_pred = model.predict(X_D_test)
+    train_score = model.score(X_DD_train, y_DD_train)
+    test_score = model.score(X_DD_test, y_DD_test)
+    y_pred = model.predict(X_DD_test)
 
     print(f"Training Score: {train_score:.4f}")
     print(f"Test Score    : {test_score:.4f}")
 
     # === Classification ===
     if model_type == "Classification":
-        acc = accuracy_score(y_D_test, y_pred)
-        prec = precision_score(y_D_test, y_pred, zero_division=0)
-        rec = recall_score(y_D_test, y_pred, zero_division=0)
-        f1 = f1_score(y_D_test, y_pred, zero_division=0)
+        acc = accuracy_score(y_DD_test, y_pred)
+        prec = precision_score(y_DD_test, y_pred, zero_division=0)
+        rec = recall_score(y_DD_test, y_pred, zero_division=0)
+        f1 = f1_score(y_DD_test, y_pred, zero_division=0)
         print(f"Accuracy : {acc:.4f}")
         print(f"Precision: {prec:.4f}")
         print(f"Recall   : {rec:.4f}")
         print(f"F1 Score : {f1:.4f}")
         print("\nClassification Report:")
-        print(classification_report(y_D_test, y_pred, zero_division=0))
+        print(classification_report(y_DD_test, y_pred, zero_division=0))
 
-        plot_confusion_matrix(y_D_test, y_pred, f"{model_choice} - Confusion Matrix")
+        plot_confusion_matrix(y_DD_test, y_pred, f"{model_choice} - Confusion Matrix")
 
         if hasattr(model, "predict_proba"):
-            y_prob = model.predict_proba(X_D_test)[:, 1]
-            plot_roc_curve(y_D_test, y_prob, f"{model_choice} - ROC Curve")
+            y_prob = model.predict_proba(X_DD_test)[:, 1]
+            plot_roc_curve(y_DD_test, y_prob, f"{model_choice} - ROC Curve")
         else:
             print("ROC Curve skipped: Model has no predict_proba")
 
     # === Regression ===
     else:
-        r2 = r2_score(y_D_test, y_pred)
-        mae = mean_absolute_error(y_D_test, y_pred)
-        mse = mean_squared_error(y_D_test, y_pred)
+        r2 = r2_score(y_DD_test, y_pred)
+        mae = mean_absolute_error(y_DD_test, y_pred)
+        mse = mean_squared_error(y_DD_test, y_pred)
         rmse = np.sqrt(mse)
         print(f"R² Score      : {r2:.4f}")
         print(f"MAE           : {mae:.4f}")
