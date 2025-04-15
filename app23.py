@@ -1023,8 +1023,8 @@ def Models_Testing_section():
             yaxis_title='True Positive Rate',
             xaxis=dict(scaleanchor="y", scaleratio=1),
             yaxis=dict(constrain='domain'),
-            width=700,
-            height=500
+            width=600,
+            height=600
         )
         st.plotly_chart(fig, use_container_width=True)
         
@@ -1046,6 +1046,11 @@ def Models_Testing_section():
             title_text=title,
             xaxis=dict(title="Predicted Label"),
             yaxis=dict(title="True Label")
+        )
+        fig.update_layout(
+            title=title,
+            width=600,     # Change as needed
+            height=600     # Change as needed
         )
         st.plotly_chart(fig, use_container_width=True)
     
