@@ -22,7 +22,7 @@ joblib==1.4.0                  # Model serialization
 plotly==5.20.0                 # Interactive charts
 matplotlib==3.8.4              # Static visualizations
 scipy==1.13.0                  # Scientific computing (KDE, stats)
-# seaborn==0.13.2              # Optional: attractive statistical plots
+seaborn==0.13.2              # Optional: attractive statistical plots
 
 # ---------------------------------------------
 # FILE & NETWORK UTILITIES
@@ -41,5 +41,5 @@ pyarrow>=14.0.0                # Optional: Parquet or Arrow data support
 
 # ---------------------------------------------
 # OPTIONAL DEPENDENCIES
-# tensorflow==2.16.1           # Uncomment if adding DL models
+tensorflow==2.16.1           # Uncomment if adding DL models
 # seaborn==0.13.2              # Uncomment if you use advanced styled plots
