@@ -16,6 +16,9 @@ from sklearn.metrics import (
 )
 import seaborn as sns
 from sklearn.model_selection import train_test_split  # Split dataset into training and testing sets
+from sklearn.metrics import auc
+
+
 
 
 
