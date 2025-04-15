@@ -1061,7 +1061,11 @@ def Models_Testing_section():
         st.markdown(f"Recall   : {rec:.4f}")
         st.markdown(f"F1 Score : {f1:.4f}")
         st.markdown("\nClassification Report:")
-        st.markdown(classification_report(y_DD_test, y_pred, zero_division=0))
+        st.markdown(f"```\n{classification_report(y_DD_test, y_pred, zero_division=0)}\n```")
+
+        
+        st.text(classification_report(y_DD_test, y_pred, zero_division=0))
+
 
         st.markdown("### 🔍 **Confusion Matrix**")
         plot_confusion_matrix(y_DD_test, y_pred, f"{model_choice} - Confusion Matrix")
