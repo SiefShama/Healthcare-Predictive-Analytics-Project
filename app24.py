@@ -1560,7 +1560,7 @@ def Prediction_Column_section():
         with st.form("plot_model_form"):
             Plotted = st.form_submit_button("Plot Model")
 
-        Plotted = st.form_submit_button("Plot Model")
+        
         if Plotted:
             # === Classification ===
             if fields in categorical_columns:
