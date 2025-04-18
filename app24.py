@@ -1390,10 +1390,10 @@ def Prediction_Column_section():
         
         if target_field == "Diabetes_State":
             Type = st.radio("Diabetes State type", [0, 1], format_func=lambda x: "SMOTE" if x else "Normal")
-            if Type:
+            if Type == 1:
                 st.markdown ("### SMOTE Diabetes State prediction ")
                 
-                 model_drive_ids = {
+                model_drive_ids = {
                     
                     'pipe_Diabetes_State_SMOTE.pkl': '1XJT0LCT7_AbnEdE01blrdG1P-7zjMseK',
                     'gnb_Diabetes_State_SMOTE.pkl': '1BGpOeu90HLg1QAcXHQpvacIkjF608vuR',
