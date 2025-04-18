@@ -1127,7 +1127,9 @@ def Prediction_Column_section():
         st.title("🧠 Health Risk Prediction App")
         target_field = st.selectbox("Select the field you want us to predict for you:", fields)
         
-        Type = st.radio("Diabetes State type", [0, 1], format_func=lambda x: "SMOTE" if x else "Normal")
+        if target_field == "Diabetes_State":
+                        
+            Type = st.radio("Diabetes State type", [0, 1], format_func=lambda x: "SMOTE" if x else "Normal")
             if Type == 1:
                 st.markdown ("### SMOTE Diabetes State prediction ")
                 
@@ -1150,6 +1152,7 @@ def Prediction_Column_section():
                     'logr_Diabetes_State.pkl': '1AExNEPHjW_8KITP6qSMqLfkk6ZdkxEIF'
 
                     }
+            
             
         elif target_field == "HB":    
             model_drive_ids = {
