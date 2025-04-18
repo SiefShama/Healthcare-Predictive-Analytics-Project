@@ -1562,6 +1562,64 @@ def Prediction_Column_section():
 
         
         if Plotted:
+            if model is None:
+                st.error("❌ Selected model could not be loaded. Please check the selection.")
+                st.stop()
+
+            print(f"🔍 Evaluating model: {model_choice}")
+            train_score = model.score(X_DD_train, y_DD_train)
+            test_score = model.score(X_DD_test, y_DD_test)
+            y_pred = model.predict(X_DD_test)
+
+            print(f"Training Score: {train_score:.4f}")
+            print(f"Test Score    : {test_score:.4f}")
+            
+            def plot_roc_curve(y_true, y_proba, title="ROC Curve"):
+                fpr, tpr, _ = roc_curve(y_true, y_proba)
+                roc_auc = auc(fpr, tpr)
+
+                fig = go.Figure()
+                fig.add_trace(go.Scatter(x=fpr, y=tpr, mode='lines', name='ROC Curve', line=dict(color='blue')))
+                fig.add_trace(go.Scatter(x=[0, 1], y=[0, 1], mode='lines', name='Random Baseline', line=dict(dash='dash')))
+                
+                fig.update_layout(
+                    title=f"{title} (AUC = {roc_auc:.2f})",
+                    xaxis_title='False Positive Rate',
+                    yaxis_title='True Positive Rate',
+                    xaxis=dict(scaleanchor="y", scaleratio=1),
+                    yaxis=dict(constrain='domain'),
+                    width=600,
+                    height=600
+                )
+                st.plotly_chart(fig, use_container_width=True)
+                
+                
+            def plot_confusion_matrix(y_true, y_pred, title="Confusion Matrix"):
+                cm = confusion_matrix(y_true, y_pred)
+                labels = ["Negative", "Positive"]
+                
+                z = cm
+                x = labels
+                y = labels
+
+                z_text = [[str(y) for y in x] for x in z]
+
+                fig = ff.create_annotated_heatmap(
+                    z=z, x=x, y=y, annotation_text=z_text, colorscale='Blues', showscale=True
+                )
+                fig.update_layout(
+                    title_text=title,
+                    xaxis=dict(title="Predicted Label"),
+                    yaxis=dict(title="True Label")
+                )
+                fig.update_layout(
+                    title=title,
+                    width=600,     # Change as needed
+                    height=600     # Change as needed
+                )
+                st.plotly_chart(fig, use_container_width=True)
+    
+    
             # === Classification ===
             if fields in categorical_columns:
                 acc = accuracy_score(y_DD_test, y_pred)
