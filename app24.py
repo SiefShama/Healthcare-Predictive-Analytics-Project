@@ -1451,19 +1451,21 @@ def Prediction_Column_section():
                      
             
 
-            if model:
-                prediction = model.predict(user_data)[0]
-                result = "🟢 Likely Healthy" if prediction == 0 else "🔴 Likely Not Healthy"
-       
+            
             model_id = model_drive_ids.get(model_choice)
             
             # Convert user_data dictionary to user_input without hardcoding the values
-            user_input = [[value for value in user_data.values()]]
+            user_input = user_data.values.tolist()
+
             
             
             
             if model_id:
                 model = load_model_from_drive(model_id)
+                if model:
+                    prediction = model.predict(user_data)[0]
+                    result = "🟢 Likely Healthy" if prediction == 0 else "🔴 Likely Not Healthy"
+       
                 if model:
                     try:
                         prediction = model.predict(user_input)[0]
