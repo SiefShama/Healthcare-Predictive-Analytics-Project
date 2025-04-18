@@ -1359,16 +1359,19 @@ def Prediction_Column_section():
                 result = "🟢 Likely Healthy" if prediction == 0 else "🔴 Likely Diabetic"
        
             model_id = model_drive_ids.get(model_choice)
+            
+            # Convert user_data dictionary to user_input without hardcoding the values
+            user_input = [[value for value in user_data.values()]]
 
             if model_id:
                 model = load_model_from_drive(model_id)
                 if model:
                     try:
-                        prediction = model.predict(user_data)[0]
+                        prediction = model.predict(user_input)[0]
                         pred_label = "Diabetic" if prediction == 1 else "Non-Diabetic"
                         st.success(f"🧾 **Prediction Result:** {pred_label}")
                         if hasattr(model, "predict_proba"):
-                            prob = model.predict_proba(user_data)[0][1]
+                            prob = model.predict_proba(user_input)[0][1]
                             st.info(f"📊 Probability of being diabetic: **{prob:.2%}**")
                     except Exception as e:
                         st.error("❌ Prediction failed. See error below.")
