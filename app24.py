@@ -1118,301 +1118,481 @@ def Prediction_Column_section():
         "HB","Cholesterol", "Heart_Disease", "PhysActivity"
     ]
     numerical_columns = [ "BMI", "MentHlth", "GenHlth", "Age", "PhysHlth"]
-
-    # --- User selects which field to predict ---
-    st.title("🧠 Health Risk Prediction App")
-    target_field = st.selectbox("Select the field you want us to predict for you:", fields)
     
-    if target_field == "Diabetes_State":
+    # Sidebar with radio buttons
+    choice = st.sidebar.radio("Choose Section", ["Prediction", "Plots"])
+    # Conditional rendering based on choice
+    if choice == "Prediction":
+        # --- User selects which field to predict ---
+        st.title("🧠 Health Risk Prediction App")
+        target_field = st.selectbox("Select the field you want us to predict for you:", fields)
         
-        model_drive_ids = {
-            'pipe_Diabetes_State.pkl': '1j9zd7eV4GFUBrwl-hYuoXwvE7bzUZ7fo',
-            'gnb_Diabetes_State.pkl': '1P_xoMjcgmMVpHdcndEJx-nygwxyIYWnK',
-            'xgb_Diabetes_State.pkl': '1Ro2Z8ZikMJeLTFevHWTyJGU54Ai0ZRXn',
-            'logr_Diabetes_State.pkl': '1AExNEPHjW_8KITP6qSMqLfkk6ZdkxEIF'
-
-            }
-        
-    elif target_field == "HB":    
-        model_drive_ids = {
-            'pipe_HB.pkl': '1-w4J2D5BjPDvVqVL0ZomTCo710aJqdYv', 
-            'gnb_HB.pkl': '1-vAtt1g1gNwQUxSBEVL5R2Oe2KaCkarZ', 
-            'xgb_HB.pkl': '1-qx3xa1yE4GGTyYbdxxNq0NxWLLqc3Q7', 
-            'logr_HB.pkl': '1-Do_j20P8iNWQc3qrvuPK3iP-8qdxSr6'
+        if target_field == "Diabetes_State":
             
-            }
-        
-        
-    elif target_field == "Cholesterol":
-        model_drive_ids = {
-        
-            'gnb_Cholesterol.pkl': '10-k31utSGKXrYTXdLdutUrn41WwE0N9Z',
-            'pipe_Cholesterol.pkl': '1-yoymNnqZMOkxoriBJzV3dTIBwg_0Gmk',
-            'xgb_Cholesterol.pkl': '109v8jiLqdA3xiRFh06cpv74FSDydS3Kh', 
-            'logr_Cholesterol.pkl': '109mjkKw-cP8ZC65HGCJZl9dEOqoqVNue'
-        
-            }
-        
-    elif target_field == "BMI":
-        model_drive_ids = {
-            'xgbr_BMI.pkl': '10Cjx8Hwly0HMt4v2Swnk9t_FYvwKO6Rh', 
-            'regressor_BMI.pkl': '10JiXy7bs7io6wCxC_whw9UUUshIfAOVM'
-        
-            }
-        
-    elif target_field == "Heart_Disease":
-        model_drive_ids = {
-            'gnb_Heart_Disease.pkl': '10Klf74O_P47GAE8jRxxvOM8lnychItSY',
-            'pipe_Heart_Disease.pkl': '10RHhLSvRAbqqg4OyGSJWo-jUT8sG1rgm',
-            'xgb_Heart_Disease.pkl': '10T4yjQnXR9SX-Cp7-hWEZ9nm0lgOezet', 
-            'logr_Heart_Disease.pkl': '10Syu1AC9bUf3-3wYcaIELwgPTpxG8R8k'
-        
-            }
+            model_drive_ids = {
+                'pipe_Diabetes_State.pkl': '1j9zd7eV4GFUBrwl-hYuoXwvE7bzUZ7fo',
+                'gnb_Diabetes_State.pkl': '1P_xoMjcgmMVpHdcndEJx-nygwxyIYWnK',
+                'xgb_Diabetes_State.pkl': '1Ro2Z8ZikMJeLTFevHWTyJGU54Ai0ZRXn',
+                'logr_Diabetes_State.pkl': '1AExNEPHjW_8KITP6qSMqLfkk6ZdkxEIF'
+
+                }
             
-    elif target_field == "PhysActivity":
-        model_drive_ids = {
-            'gnb_PhysActivity.pkl': '10vODwUA4_sdkSsUQLaRmNXijLEoEL4Jw',
-            'pipe_PhysActivity.pkl': '10xmQ43ZaKYxTTqKXsk9nnh_UwDmsEaoj',
-            'xgb_PhysActivity.pkl': '10pi4HVlJW3Q16Ilr7lDn8FIlN6i0mJsO',
-            'logr_PhysActivity.pkl': '10g0oK5azAiIR4Ujl2lbINx2Q2LVZQwBo'
-        
-            }
-        
-    elif target_field == "PhysHlth":
-        model_drive_ids = {
-            'regressor_PhysHlth.pkl': '1130fNlH8qW51ihHPtto_FVPp9KkkwmVf',
-            'xgbr_PhysHlth.pkl': '11LF2b7EFp2lb3NVtmk-IXVPZXwG6gbL-'
-        
-            }
-        
-    elif target_field == "Gender":
-        model_drive_ids = {
-            'pipe_Gender.pkl': '11VGc2ndX3kXS1F_72xuwPInXCiaWeIay', 
-            'gnb_Gender.pkl': '11QgBGwW_825iAxt9tXIU9qX5DUy7Ll3I', 
-            'xgb_Gender.pkl': '11Q2fzJ4gtiduxGAIb0hn9NOFNDOziqh7', 
-            'logr_Gender.pkl': '11MtvcVuZUSsB0Td6MPnRoNq90mZF3iNo'
-        
-            }
-        
-    elif target_field == "Age":
-        model_drive_ids = {
-            'regressor_Age.pkl': '11c4ETvbtzC3zJRD2RBirxheEImoAc151',
-            'xgbr_Age.pkl': '11Ys0I2h7JDcpN8ZtRWu2VYJ99dy-suSC'
-        
-            }
-        
-    elif target_field == "Stroke":
-        model_drive_ids = {
-            'gnb_Stroke.pkl': '11jymK3AhmzTrorEUH8DaOD-xsZh2ruPm',
-            'pipe_Stroke.pkl': '11jzvl26qD42hOaYTNG3iFAJp0nUPACWJ',
-            'xgb_Stroke.pkl': '11ifDcMtil9iFknqtnrcppDK_Og7U4Yr5',
-            'logr_Stroke.pkl': '11gZUD80wye_G6lQ5bm2SLVNR-mcwZTBC'
-        
-            }
-        
-    elif target_field == "GenHlth":
-        model_drive_ids = {
-            'regressor_GenHlth.pkl': '11xfX_MVcMoUWvixtyzTGSvoEX0GV8mk6',
-            'xgbr_GenHlth.pkl': '11lbmxXOuwtTrX1CztPQwbu9XABsBPm5n'
-        
-            }
-        
-    elif target_field == "CholCheck":
-        model_drive_ids = {
-            'pipe_CholCheck.pkl': '126RtgJvf6WkRbYM_5NFn4cHsEbuh5j16',
-            'gnb_CholCheck.pkl': '121UfCxyZW0sX5N0-SNAHT2u2WCyp-EyS',
-            'xgb_CholCheck.pkl': '120AvQQKr_tB2RsVUtIr0RTvGCsnv9eP2',
-            'logr_CholCheck.pkl': '11yRfIqVkxBhiXyCxEOGp9iO7uL1n0NS6'
+        elif target_field == "HB":    
+            model_drive_ids = {
+                'pipe_HB.pkl': '1-w4J2D5BjPDvVqVL0ZomTCo710aJqdYv', 
+                'gnb_HB.pkl': '1-vAtt1g1gNwQUxSBEVL5R2Oe2KaCkarZ', 
+                'xgb_HB.pkl': '1-qx3xa1yE4GGTyYbdxxNq0NxWLLqc3Q7', 
+                'logr_HB.pkl': '1-Do_j20P8iNWQc3qrvuPK3iP-8qdxSr6'
+                
+                }
             
-            }
-        
-    elif target_field == "Smoker":
-        model_drive_ids = {
-            'pipe_Smoker.pkl': '12JuVvuj49IfimLfmBsz80VAmMDNhRcEs',
-            'gnb_Smoker.pkl': '12GtDIFF-oN86aKlOrpX5KqHRj3HPGxID',
-            'xgb_Smoker.pkl': '12Cgch_pZNQ0UeTxN_XVbeV13KaOkFowP',
-            'logr_Smoker.pkl': '128UVLSCo_H4Xkc3zKSKMM0OHtJtCtW-T'
-        
-            }
-        
-    elif target_field == "Veggies":
-        model_drive_ids = {
-            'pipe_Veggies.pkl': '12cQFjuSSHVpmJCSk792AvdN_B-qZWzlj',
-            'gnb_Veggies.pkl': '12_arDrCem_NzHTBHOuVUr4ZqWSOe67sv',
-            'xgb_Veggies.pkl': '12dMoRIkpmCpB-czkdPCQAXFf6Wq2mqg3',
-            'logr_Veggies.pkl': '12cbVojY0uvYAMKw49XuU388sJf8kSCCN'
-        
-            }
-        
-    elif target_field == "Fruits":
-        model_drive_ids = {
-            'pipe_Fruits.pkl': '12PZCsy1GbMuav0QaymmQkErvfXtfb9k6',
-            'gnb_Fruits.pkl': '12LnsKNwNDTKIyKS8TGZUH02AqIZyLx1b',
-            'xgb_Fruits.pkl': '12T2TtHNbWeu1sxz7qJgNfGtpz_Npvt5L',
-            'logr_Fruits.pkl': '12Q510anLFqiwZ0aXDFv_35F79lvoG3Tf'
-        
-            }
-        
-    elif target_field == "HvyAlcoholConsump":
-        model_drive_ids = {
-            'pipe_HvyAlcoholConsump.pkl': '12deBl4Prtljy0b4nsSRCefdaukT4lAde',
-            'gnb_HvyAlcoholConsump.pkl': '12eQmVKGEl8FTcDOpL47mGpWwfYbFTynC',
-            'xgb_HvyAlcoholConsump.pkl': '12zzek2MfwI6i5Z8XnHUVzUSR78gh1ZYO',
-            'logr_HvyAlcoholConsump.pkl': '12ympmEgrTOhmQY8GFWjrKTLayqm1FxUh'
-        
-            }
-        
-    elif target_field == "MentHlth":
-        model_drive_ids = {
-            'regressor_MentHlth.pkl': '12w89-QsdEtu0zlVT4ulWa5RSdMqh6Hmv',
-            'xgbr_MentHlth.pkl': '13-ItGQxCAC9L4rjX-DIlVKtIwjVoOy0z'
-        
-            }
-        
-    elif target_field == "DiffWalk":
-        model_drive_ids = {
-            'pipe_DiffWalk.pkl': '13CLyRt_QJTFsDr9IRCnYZNfOfsvvnGQT',
-            'gnb_DiffWalk.pkl': '13-njQYlzz92zrhOUERYJ5aZOcUKU2puO',
-            'xgb_DiffWalk.pkl': '13D3QNzBEkCgpxGvWzIpvJ_Koogy05wY6',
-            'logr_DiffWalk.pkl': '13DDuIzviI076Fj2pL0dFDTPAw9MFgkeA'
-        
-            }
-        
-     
-    model_choice = st.selectbox("🔍 Select a model to show its Testing results", model_drive_ids)
-    model = load_model_from_drive(model_drive_ids[model_choice])
-    st.markdown(f"✅ **You selected:** `{model_choice}`")
+            
+        elif target_field == "Cholesterol":
+            model_drive_ids = {
+            
+                'gnb_Cholesterol.pkl': '10-k31utSGKXrYTXdLdutUrn41WwE0N9Z',
+                'pipe_Cholesterol.pkl': '1-yoymNnqZMOkxoriBJzV3dTIBwg_0Gmk',
+                'xgb_Cholesterol.pkl': '109v8jiLqdA3xiRFh06cpv74FSDydS3Kh', 
+                'logr_Cholesterol.pkl': '109mjkKw-cP8ZC65HGCJZl9dEOqoqVNue'
+            
+                }
+            
+        elif target_field == "BMI":
+            model_drive_ids = {
+                'xgbr_BMI.pkl': '10Cjx8Hwly0HMt4v2Swnk9t_FYvwKO6Rh', 
+                'regressor_BMI.pkl': '10JiXy7bs7io6wCxC_whw9UUUshIfAOVM'
+            
+                }
+            
+        elif target_field == "Heart_Disease":
+            model_drive_ids = {
+                'gnb_Heart_Disease.pkl': '10Klf74O_P47GAE8jRxxvOM8lnychItSY',
+                'pipe_Heart_Disease.pkl': '10RHhLSvRAbqqg4OyGSJWo-jUT8sG1rgm',
+                'xgb_Heart_Disease.pkl': '10T4yjQnXR9SX-Cp7-hWEZ9nm0lgOezet', 
+                'logr_Heart_Disease.pkl': '10Syu1AC9bUf3-3wYcaIELwgPTpxG8R8k'
+            
+                }
+                
+        elif target_field == "PhysActivity":
+            model_drive_ids = {
+                'gnb_PhysActivity.pkl': '10vODwUA4_sdkSsUQLaRmNXijLEoEL4Jw',
+                'pipe_PhysActivity.pkl': '10xmQ43ZaKYxTTqKXsk9nnh_UwDmsEaoj',
+                'xgb_PhysActivity.pkl': '10pi4HVlJW3Q16Ilr7lDn8FIlN6i0mJsO',
+                'logr_PhysActivity.pkl': '10g0oK5azAiIR4Ujl2lbINx2Q2LVZQwBo'
+            
+                }
+            
+        elif target_field == "PhysHlth":
+            model_drive_ids = {
+                'regressor_PhysHlth.pkl': '1130fNlH8qW51ihHPtto_FVPp9KkkwmVf',
+                'xgbr_PhysHlth.pkl': '11LF2b7EFp2lb3NVtmk-IXVPZXwG6gbL-'
+            
+                }
+            
+        elif target_field == "Gender":
+            model_drive_ids = {
+                'pipe_Gender.pkl': '11VGc2ndX3kXS1F_72xuwPInXCiaWeIay', 
+                'gnb_Gender.pkl': '11QgBGwW_825iAxt9tXIU9qX5DUy7Ll3I', 
+                'xgb_Gender.pkl': '11Q2fzJ4gtiduxGAIb0hn9NOFNDOziqh7', 
+                'logr_Gender.pkl': '11MtvcVuZUSsB0Td6MPnRoNq90mZF3iNo'
+            
+                }
+            
+        elif target_field == "Age":
+            model_drive_ids = {
+                'regressor_Age.pkl': '11c4ETvbtzC3zJRD2RBirxheEImoAc151',
+                'xgbr_Age.pkl': '11Ys0I2h7JDcpN8ZtRWu2VYJ99dy-suSC'
+            
+                }
+            
+        elif target_field == "Stroke":
+            model_drive_ids = {
+                'gnb_Stroke.pkl': '11jymK3AhmzTrorEUH8DaOD-xsZh2ruPm',
+                'pipe_Stroke.pkl': '11jzvl26qD42hOaYTNG3iFAJp0nUPACWJ',
+                'xgb_Stroke.pkl': '11ifDcMtil9iFknqtnrcppDK_Og7U4Yr5',
+                'logr_Stroke.pkl': '11gZUD80wye_G6lQ5bm2SLVNR-mcwZTBC'
+            
+                }
+            
+        elif target_field == "GenHlth":
+            model_drive_ids = {
+                'regressor_GenHlth.pkl': '11xfX_MVcMoUWvixtyzTGSvoEX0GV8mk6',
+                'xgbr_GenHlth.pkl': '11lbmxXOuwtTrX1CztPQwbu9XABsBPm5n'
+            
+                }
+            
+        elif target_field == "CholCheck":
+            model_drive_ids = {
+                'pipe_CholCheck.pkl': '126RtgJvf6WkRbYM_5NFn4cHsEbuh5j16',
+                'gnb_CholCheck.pkl': '121UfCxyZW0sX5N0-SNAHT2u2WCyp-EyS',
+                'xgb_CholCheck.pkl': '120AvQQKr_tB2RsVUtIr0RTvGCsnv9eP2',
+                'logr_CholCheck.pkl': '11yRfIqVkxBhiXyCxEOGp9iO7uL1n0NS6'
+                
+                }
+            
+        elif target_field == "Smoker":
+            model_drive_ids = {
+                'pipe_Smoker.pkl': '12JuVvuj49IfimLfmBsz80VAmMDNhRcEs',
+                'gnb_Smoker.pkl': '12GtDIFF-oN86aKlOrpX5KqHRj3HPGxID',
+                'xgb_Smoker.pkl': '12Cgch_pZNQ0UeTxN_XVbeV13KaOkFowP',
+                'logr_Smoker.pkl': '128UVLSCo_H4Xkc3zKSKMM0OHtJtCtW-T'
+            
+                }
+            
+        elif target_field == "Veggies":
+            model_drive_ids = {
+                'pipe_Veggies.pkl': '12cQFjuSSHVpmJCSk792AvdN_B-qZWzlj',
+                'gnb_Veggies.pkl': '12_arDrCem_NzHTBHOuVUr4ZqWSOe67sv',
+                'xgb_Veggies.pkl': '12dMoRIkpmCpB-czkdPCQAXFf6Wq2mqg3',
+                'logr_Veggies.pkl': '12cbVojY0uvYAMKw49XuU388sJf8kSCCN'
+            
+                }
+            
+        elif target_field == "Fruits":
+            model_drive_ids = {
+                'pipe_Fruits.pkl': '12PZCsy1GbMuav0QaymmQkErvfXtfb9k6',
+                'gnb_Fruits.pkl': '12LnsKNwNDTKIyKS8TGZUH02AqIZyLx1b',
+                'xgb_Fruits.pkl': '12T2TtHNbWeu1sxz7qJgNfGtpz_Npvt5L',
+                'logr_Fruits.pkl': '12Q510anLFqiwZ0aXDFv_35F79lvoG3Tf'
+            
+                }
+            
+        elif target_field == "HvyAlcoholConsump":
+            model_drive_ids = {
+                'pipe_HvyAlcoholConsump.pkl': '12deBl4Prtljy0b4nsSRCefdaukT4lAde',
+                'gnb_HvyAlcoholConsump.pkl': '12eQmVKGEl8FTcDOpL47mGpWwfYbFTynC',
+                'xgb_HvyAlcoholConsump.pkl': '12zzek2MfwI6i5Z8XnHUVzUSR78gh1ZYO',
+                'logr_HvyAlcoholConsump.pkl': '12ympmEgrTOhmQY8GFWjrKTLayqm1FxUh'
+            
+                }
+            
+        elif target_field == "MentHlth":
+            model_drive_ids = {
+                'regressor_MentHlth.pkl': '12w89-QsdEtu0zlVT4ulWa5RSdMqh6Hmv',
+                'xgbr_MentHlth.pkl': '13-ItGQxCAC9L4rjX-DIlVKtIwjVoOy0z'
+            
+                }
+            
+        elif target_field == "DiffWalk":
+            model_drive_ids = {
+                'pipe_DiffWalk.pkl': '13CLyRt_QJTFsDr9IRCnYZNfOfsvvnGQT',
+                'gnb_DiffWalk.pkl': '13-njQYlzz92zrhOUERYJ5aZOcUKU2puO',
+                'xgb_DiffWalk.pkl': '13D3QNzBEkCgpxGvWzIpvJ_Koogy05wY6',
+                'logr_DiffWalk.pkl': '13DDuIzviI076Fj2pL0dFDTPAw9MFgkeA'
+                }
+            
+         
+        model_choice = st.selectbox("🔍 Select a model to show its Testing results", model_drive_ids)
+        model = load_model_from_drive(model_drive_ids[model_choice])
+        st.markdown(f"✅ **You selected:** `{model_choice}`")
 
-    # --- Streamlit Form ---
-    with st.form("diabetes_form"):
-        st.subheader("Health Information (Fill the rest)")
+        # --- Streamlit Form ---
+        with st.form("diabetes_form"):
+            st.subheader("Health Information (Fill the rest)")
 
-        col1, col2 = st.columns(2)
-        user_data = {}
+            col1, col2 = st.columns(2)
+            user_data = {}
 
-        for i, field in enumerate(fields):
-            if field == target_field:
-                continue  # Skip input for the selected field to predict
+            for i, field in enumerate(fields):
+                if field == target_field:
+                    continue  # Skip input for the selected field to predict
 
-            with (col1 if i % 2 == 0 else col2):
-                if field == "Diabetes_State":
-                    user_data[field] = st.radio("Diabetes State", [0, 1], format_func=lambda x: "Yes" if x else "No")
-                elif field == "HB":
-                    user_data[field] = st.radio("High Blood Pressure (HB)", [0, 1], format_func=lambda x: "Yes" if x else "No")
-                elif field == "Cholesterol":
-                    user_data[field] = st.radio("Cholesterol", [0, 1], format_func=lambda x: "High" if x else "Normal")
-                elif field == "BMI":
-                    user_data[field] = st.number_input("Body Mass Index (BMI)", min_value=10, max_value=70)
-                elif field == "Heart_Disease":
-                    user_data[field] = st.radio("Heart Disease", [0, 1], format_func=lambda x: "Yes" if x else "No")
-                elif field == "PhysActivity":
-                    user_data[field] = st.radio("Physical Activity", [0, 1], format_func=lambda x: "Yes" if x else "No")
-                elif field == "PhysHlth":
-                    user_data[field] = st.slider("Poor Physical Health Days (Last 30 Days)", 0, 30)
-                elif field == "Gender":
-                    user_data[field] = st.radio("Gender", [0, 1], format_func=lambda x: "Female" if x == 0 else "Male")
-                elif field == "Age":
-                    user_data[field] = st.number_input("Age", min_value=1, max_value=120)
-                elif field == "Stroke":
-                    user_data[field] = st.radio("Stroke History", [0, 1])
-                elif field == "GenHlth":
-                    user_data[field] = st.selectbox("General Health", [1, 2, 3, 4, 5],
-                                                    format_func=lambda x: ["Excellent", "Very Good", "Good", "Fair", "Poor"][x - 1])
-                elif field == "CholCheck":
-                    user_data[field] = st.radio("Cholesterol Checked", [0, 1])
-                elif field == "Smoker":
-                    user_data[field] = st.radio("Smoker", [0, 1])
-                elif field == "Fruits":
-                    user_data[field] = st.radio("Consumes Fruits", [0, 1])
-                elif field == "Veggies":
-                    user_data[field] = st.radio("Consumes Vegetables", [0, 1])
-                elif field == "HvyAlcoholConsump":
-                    user_data[field] = st.radio("Heavy Alcohol Use", [0, 1])
-                elif field == "MentHlth":
-                    user_data[field] = st.slider("Poor Mental Health Days", 0, 30)
-                elif field == "DiffWalk":
-                    user_data[field] = st.radio("Difficulty Walking", [0, 1])
+                with (col1 if i % 2 == 0 else col2):
+                    if field == "Diabetes_State":
+                        user_data[field] = st.radio("Diabetes State", [0, 1], format_func=lambda x: "Yes" if x else "No")
+                    elif field == "HB":
+                        user_data[field] = st.radio("High Blood Pressure (HB)", [0, 1], format_func=lambda x: "Yes" if x else "No")
+                    elif field == "Cholesterol":
+                        user_data[field] = st.radio("Cholesterol", [0, 1], format_func=lambda x: "High" if x else "Normal")
+                    elif field == "BMI":
+                        user_data[field] = st.number_input("Body Mass Index (BMI)", min_value=10, max_value=70)
+                    elif field == "Heart_Disease":
+                        user_data[field] = st.radio("Heart Disease", [0, 1], format_func=lambda x: "Yes" if x else "No")
+                    elif field == "PhysActivity":
+                        user_data[field] = st.radio("Physical Activity", [0, 1], format_func=lambda x: "Yes" if x else "No")
+                    elif field == "PhysHlth":
+                        user_data[field] = st.slider("Poor Physical Health Days (Last 30 Days)", 0, 30)
+                    elif field == "Gender":
+                        user_data[field] = st.radio("Gender", [0, 1], format_func=lambda x: "Female" if x == 0 else "Male")
+                    elif field == "Age":
+                        user_data[field] = st.number_input("Age", min_value=1, max_value=120)
+                    elif field == "Stroke":
+                        user_data[field] = st.radio("Stroke History", [0, 1])
+                    elif field == "GenHlth":
+                        user_data[field] = st.selectbox("General Health", [1, 2, 3, 4, 5],
+                                                        format_func=lambda x: ["Excellent", "Very Good", "Good", "Fair", "Poor"][x - 1])
+                    elif field == "CholCheck":
+                        user_data[field] = st.radio("Cholesterol Checked", [0, 1])
+                    elif field == "Smoker":
+                        user_data[field] = st.radio("Smoker", [0, 1])
+                    elif field == "Fruits":
+                        user_data[field] = st.radio("Consumes Fruits", [0, 1])
+                    elif field == "Veggies":
+                        user_data[field] = st.radio("Consumes Vegetables", [0, 1])
+                    elif field == "HvyAlcoholConsump":
+                        user_data[field] = st.radio("Heavy Alcohol Use", [0, 1])
+                    elif field == "MentHlth":
+                        user_data[field] = st.slider("Poor Mental Health Days", 0, 30)
+                    elif field == "DiffWalk":
+                        user_data[field] = st.radio("Difficulty Walking", [0, 1])
 
-        submitted = st.form_submit_button("Submit")
-    
-     
+            submitted = st.form_submit_button("Submit")
         
-    
-    # --- Prediction Logic ---
-    if submitted:
-        st.markdown("---")
-        st.subheader("📋 Submitted Information")
+         
+            
+        
+        # --- Prediction Logic ---
+        if submitted:
+            st.markdown("---")
+            st.subheader("📋 Submitted Information")
 
-        # Convert to DataFrame for model prediction
-        df = pd.DataFrame([user_data])
-        st.dataframe(df)
-        st.success("✅ Your input has been recorded!")
+            # Convert to DataFrame for model prediction
+            df = pd.DataFrame([user_data])
+            st.dataframe(df)
+            st.success("✅ Your input has been recorded!")
 
 
-        if model:
-            prediction = model.predict(df)[0]
-            result = "🟢 Likely Healthy" if prediction == 0 else "🔴 Likely Diabetic"
-   
-        model_id = model_drive_ids.get(model_choice)
-
-        if model_id:
-            model = load_model_from_drive(model_id)
             if model:
-                try:
-                    prediction = model.predict(user_input)[0]
-                    pred_label = "Diabetic" if prediction == 1 else "Non-Diabetic"
-                    st.success(f"🧾 **Prediction Result:** {pred_label}")
-                    if hasattr(model, "predict_proba"):
-                        prob = model.predict_proba(user_input)[0][1]
-                        st.info(f"📊 Probability of being diabetic: **{prob:.2%}**")
-                except Exception as e:
-                    st.error("❌ Prediction failed. See error below.")
-                    st.exception(e)
+                prediction = model.predict(df)[0]
+                result = "🟢 Likely Healthy" if prediction == 0 else "🔴 Likely Diabetic"
+       
+            model_id = model_drive_ids.get(model_choice)
+
+            if model_id:
+                model = load_model_from_drive(model_id)
+                if model:
+                    try:
+                        prediction = model.predict(user_input)[0]
+                        pred_label = "Diabetic" if prediction == 1 else "Non-Diabetic"
+                        st.success(f"🧾 **Prediction Result:** {pred_label}")
+                        if hasattr(model, "predict_proba"):
+                            prob = model.predict_proba(user_input)[0][1]
+                            st.info(f"📊 Probability of being diabetic: **{prob:.2%}**")
+                    except Exception as e:
+                        st.error("❌ Prediction failed. See error below.")
+                        st.exception(e)
+                else:
+                    st.error("❌ Model could not be loaded.")
             else:
-                st.error("❌ Model could not be loaded.")
-        else:
-            st.error("❌ Selected model ID is missing.")
+                st.error("❌ Selected model ID is missing.")
+        
+    elif choice == "Plots":
+        
+        # --- User selects which field to predict ---
+        st.title("🧠 Health Risk Prediction App")
+        target_field = st.selectbox("Select the field you want us to predict for you:", fields)
+        
+        if target_field == "Diabetes_State":
+            
+            model_drive_ids = {
+                'pipe_Diabetes_State.pkl': '1j9zd7eV4GFUBrwl-hYuoXwvE7bzUZ7fo',
+                'gnb_Diabetes_State.pkl': '1P_xoMjcgmMVpHdcndEJx-nygwxyIYWnK',
+                'xgb_Diabetes_State.pkl': '1Ro2Z8ZikMJeLTFevHWTyJGU54Ai0ZRXn',
+                'logr_Diabetes_State.pkl': '1AExNEPHjW_8KITP6qSMqLfkk6ZdkxEIF'
+
+                }
+            
+        elif target_field == "HB":    
+            model_drive_ids = {
+                'pipe_HB.pkl': '1-w4J2D5BjPDvVqVL0ZomTCo710aJqdYv', 
+                'gnb_HB.pkl': '1-vAtt1g1gNwQUxSBEVL5R2Oe2KaCkarZ', 
+                'xgb_HB.pkl': '1-qx3xa1yE4GGTyYbdxxNq0NxWLLqc3Q7', 
+                'logr_HB.pkl': '1-Do_j20P8iNWQc3qrvuPK3iP-8qdxSr6'
+                
+                }
+            
+            
+        elif target_field == "Cholesterol":
+            model_drive_ids = {
+            
+                'gnb_Cholesterol.pkl': '10-k31utSGKXrYTXdLdutUrn41WwE0N9Z',
+                'pipe_Cholesterol.pkl': '1-yoymNnqZMOkxoriBJzV3dTIBwg_0Gmk',
+                'xgb_Cholesterol.pkl': '109v8jiLqdA3xiRFh06cpv74FSDydS3Kh', 
+                'logr_Cholesterol.pkl': '109mjkKw-cP8ZC65HGCJZl9dEOqoqVNue'
+            
+                }
+            
+        elif target_field == "BMI":
+            model_drive_ids = {
+                'xgbr_BMI.pkl': '10Cjx8Hwly0HMt4v2Swnk9t_FYvwKO6Rh', 
+                'regressor_BMI.pkl': '10JiXy7bs7io6wCxC_whw9UUUshIfAOVM'
+            
+                }
+            
+        elif target_field == "Heart_Disease":
+            model_drive_ids = {
+                'gnb_Heart_Disease.pkl': '10Klf74O_P47GAE8jRxxvOM8lnychItSY',
+                'pipe_Heart_Disease.pkl': '10RHhLSvRAbqqg4OyGSJWo-jUT8sG1rgm',
+                'xgb_Heart_Disease.pkl': '10T4yjQnXR9SX-Cp7-hWEZ9nm0lgOezet', 
+                'logr_Heart_Disease.pkl': '10Syu1AC9bUf3-3wYcaIELwgPTpxG8R8k'
+            
+                }
+                
+        elif target_field == "PhysActivity":
+            model_drive_ids = {
+                'gnb_PhysActivity.pkl': '10vODwUA4_sdkSsUQLaRmNXijLEoEL4Jw',
+                'pipe_PhysActivity.pkl': '10xmQ43ZaKYxTTqKXsk9nnh_UwDmsEaoj',
+                'xgb_PhysActivity.pkl': '10pi4HVlJW3Q16Ilr7lDn8FIlN6i0mJsO',
+                'logr_PhysActivity.pkl': '10g0oK5azAiIR4Ujl2lbINx2Q2LVZQwBo'
+            
+                }
+            
+        elif target_field == "PhysHlth":
+            model_drive_ids = {
+                'regressor_PhysHlth.pkl': '1130fNlH8qW51ihHPtto_FVPp9KkkwmVf',
+                'xgbr_PhysHlth.pkl': '11LF2b7EFp2lb3NVtmk-IXVPZXwG6gbL-'
+            
+                }
+            
+        elif target_field == "Gender":
+            model_drive_ids = {
+                'pipe_Gender.pkl': '11VGc2ndX3kXS1F_72xuwPInXCiaWeIay', 
+                'gnb_Gender.pkl': '11QgBGwW_825iAxt9tXIU9qX5DUy7Ll3I', 
+                'xgb_Gender.pkl': '11Q2fzJ4gtiduxGAIb0hn9NOFNDOziqh7', 
+                'logr_Gender.pkl': '11MtvcVuZUSsB0Td6MPnRoNq90mZF3iNo'
+            
+                }
+            
+        elif target_field == "Age":
+            model_drive_ids = {
+                'regressor_Age.pkl': '11c4ETvbtzC3zJRD2RBirxheEImoAc151',
+                'xgbr_Age.pkl': '11Ys0I2h7JDcpN8ZtRWu2VYJ99dy-suSC'
+            
+                }
+            
+        elif target_field == "Stroke":
+            model_drive_ids = {
+                'gnb_Stroke.pkl': '11jymK3AhmzTrorEUH8DaOD-xsZh2ruPm',
+                'pipe_Stroke.pkl': '11jzvl26qD42hOaYTNG3iFAJp0nUPACWJ',
+                'xgb_Stroke.pkl': '11ifDcMtil9iFknqtnrcppDK_Og7U4Yr5',
+                'logr_Stroke.pkl': '11gZUD80wye_G6lQ5bm2SLVNR-mcwZTBC'
+            
+                }
+            
+        elif target_field == "GenHlth":
+            model_drive_ids = {
+                'regressor_GenHlth.pkl': '11xfX_MVcMoUWvixtyzTGSvoEX0GV8mk6',
+                'xgbr_GenHlth.pkl': '11lbmxXOuwtTrX1CztPQwbu9XABsBPm5n'
+            
+                }
+            
+        elif target_field == "CholCheck":
+            model_drive_ids = {
+                'pipe_CholCheck.pkl': '126RtgJvf6WkRbYM_5NFn4cHsEbuh5j16',
+                'gnb_CholCheck.pkl': '121UfCxyZW0sX5N0-SNAHT2u2WCyp-EyS',
+                'xgb_CholCheck.pkl': '120AvQQKr_tB2RsVUtIr0RTvGCsnv9eP2',
+                'logr_CholCheck.pkl': '11yRfIqVkxBhiXyCxEOGp9iO7uL1n0NS6'
+                
+                }
+            
+        elif target_field == "Smoker":
+            model_drive_ids = {
+                'pipe_Smoker.pkl': '12JuVvuj49IfimLfmBsz80VAmMDNhRcEs',
+                'gnb_Smoker.pkl': '12GtDIFF-oN86aKlOrpX5KqHRj3HPGxID',
+                'xgb_Smoker.pkl': '12Cgch_pZNQ0UeTxN_XVbeV13KaOkFowP',
+                'logr_Smoker.pkl': '128UVLSCo_H4Xkc3zKSKMM0OHtJtCtW-T'
+            
+                }
+            
+        elif target_field == "Veggies":
+            model_drive_ids = {
+                'pipe_Veggies.pkl': '12cQFjuSSHVpmJCSk792AvdN_B-qZWzlj',
+                'gnb_Veggies.pkl': '12_arDrCem_NzHTBHOuVUr4ZqWSOe67sv',
+                'xgb_Veggies.pkl': '12dMoRIkpmCpB-czkdPCQAXFf6Wq2mqg3',
+                'logr_Veggies.pkl': '12cbVojY0uvYAMKw49XuU388sJf8kSCCN'
+            
+                }
+            
+        elif target_field == "Fruits":
+            model_drive_ids = {
+                'pipe_Fruits.pkl': '12PZCsy1GbMuav0QaymmQkErvfXtfb9k6',
+                'gnb_Fruits.pkl': '12LnsKNwNDTKIyKS8TGZUH02AqIZyLx1b',
+                'xgb_Fruits.pkl': '12T2TtHNbWeu1sxz7qJgNfGtpz_Npvt5L',
+                'logr_Fruits.pkl': '12Q510anLFqiwZ0aXDFv_35F79lvoG3Tf'
+            
+                }
+            
+        elif target_field == "HvyAlcoholConsump":
+            model_drive_ids = {
+                'pipe_HvyAlcoholConsump.pkl': '12deBl4Prtljy0b4nsSRCefdaukT4lAde',
+                'gnb_HvyAlcoholConsump.pkl': '12eQmVKGEl8FTcDOpL47mGpWwfYbFTynC',
+                'xgb_HvyAlcoholConsump.pkl': '12zzek2MfwI6i5Z8XnHUVzUSR78gh1ZYO',
+                'logr_HvyAlcoholConsump.pkl': '12ympmEgrTOhmQY8GFWjrKTLayqm1FxUh'
+            
+                }
+            
+        elif target_field == "MentHlth":
+            model_drive_ids = {
+                'regressor_MentHlth.pkl': '12w89-QsdEtu0zlVT4ulWa5RSdMqh6Hmv',
+                'xgbr_MentHlth.pkl': '13-ItGQxCAC9L4rjX-DIlVKtIwjVoOy0z'
+            
+                }
+            
+        elif target_field == "DiffWalk":
+            model_drive_ids = {
+                'pipe_DiffWalk.pkl': '13CLyRt_QJTFsDr9IRCnYZNfOfsvvnGQT',
+                'gnb_DiffWalk.pkl': '13-njQYlzz92zrhOUERYJ5aZOcUKU2puO',
+                'xgb_DiffWalk.pkl': '13D3QNzBEkCgpxGvWzIpvJ_Koogy05wY6',
+                'logr_DiffWalk.pkl': '13DDuIzviI076Fj2pL0dFDTPAw9MFgkeA'
+            
+                }
+            
+         
+        model_choice = st.selectbox("🔍 Select a model to show its Testing results", model_drive_ids)
+        model = load_model_from_drive(model_drive_ids[model_choice])
+        st.markdown(f"✅ **You selected:** `{model_choice}`")
+        
+        Diabetic_DB = load_data("Cleaned")
+        # Selecting features and target
+        X_DD = Diabetic_DB.drop(columns=[target_field])  # Features
+        y_DD = Diabetic_DB[target_field]  # Target
+            
+        # Split data
+        X_DD_train, X_DD_test, y_DD_train, y_DD_test = train_test_split(X_DD, y_DD, test_size = 0.2, random_state = 0)
     
-    
-    Plotted = st.form_submit_button("Plot Model")
-    if Plotted:
-        # === Classification ===
-        if fields in categorical_columns:
-            acc = accuracy_score(y_DD_test, y_pred)
-            prec = precision_score(y_DD_test, y_pred, zero_division=0)
-            rec = recall_score(y_DD_test, y_pred, zero_division=0)
-            f1 = f1_score(y_DD_test, y_pred, zero_division=0)
-            st.markdown(f"Accuracy : {acc:.4f}")
-            st.markdown(f"Precision: {prec:.4f}")
-            st.markdown(f"Recall   : {rec:.4f}")
-            st.markdown(f"F1 Score : {f1:.4f}")
-            st.markdown("\n #### Classification Report:")
-                    
-            st.text(classification_report(y_DD_test, y_pred, zero_division=0))
+        
+        with st.form("plot_model_form"):
+            Plotted = st.form_submit_button("Plot Model")
+
+        Plotted = st.form_submit_button("Plot Model")
+        if Plotted:
+            # === Classification ===
+            if fields in categorical_columns:
+                acc = accuracy_score(y_DD_test, y_pred)
+                prec = precision_score(y_DD_test, y_pred, zero_division=0)
+                rec = recall_score(y_DD_test, y_pred, zero_division=0)
+                f1 = f1_score(y_DD_test, y_pred, zero_division=0)
+                st.markdown(f"Accuracy : {acc:.4f}")
+                st.markdown(f"Precision: {prec:.4f}")
+                st.markdown(f"Recall   : {rec:.4f}")
+                st.markdown(f"F1 Score : {f1:.4f}")
+                st.markdown("\n #### Classification Report:")
+                        
+                st.text(classification_report(y_DD_test, y_pred, zero_division=0))
 
 
-            st.markdown("### 🔍 **Confusion Matrix**")
-            plot_confusion_matrix(y_DD_test, y_pred, f"{model_choice} - Confusion Matrix")
+                st.markdown("### 🔍 **Confusion Matrix**")
+                plot_confusion_matrix(y_DD_test, y_pred, f"{model_choice} - Confusion Matrix")
 
-            if hasattr(model, "predict_proba"):
-                y_prob = model.predict_proba(X_DD_test)[:, 1]
-                st.markdown("### 🧪 **ROC Curve**")
-                plot_roc_curve(y_DD_test, y_prob, f"{model_choice} - ROC Curve")
+                if hasattr(model, "predict_proba"):
+                    y_prob = model.predict_proba(X_DD_test)[:, 1]
+                    st.markdown("### 🧪 **ROC Curve**")
+                    plot_roc_curve(y_DD_test, y_prob, f"{model_choice} - ROC Curve")
+                else:
+                    st.warning("ROC Curve skipped: Model has no predict_proba method")
+
+            # === Regression ===
             else:
-                st.warning("ROC Curve skipped: Model has no predict_proba method")
+                r2 = r2_score(y_DD_test, y_pred)
+                mae = mean_absolute_error(y_DD_test, y_pred)
+                mse = mean_squared_error(y_DD_test, y_pred)
+                rmse = np.sqrt(mse)
+                st.markdown(f"R² Score      : {r2:.4f}")
+                st.markdown(f"MAE           : {mae:.4f}")
+                st.markdown(f"MSE           : {mse:.4f}")
+                st.markdown(f"RMSE          : {rmse:.4f}")
 
-        # === Regression ===
-        else:
-            r2 = r2_score(y_DD_test, y_pred)
-            mae = mean_absolute_error(y_DD_test, y_pred)
-            mse = mean_squared_error(y_DD_test, y_pred)
-            rmse = np.sqrt(mse)
-            st.markdown(f"R² Score      : {r2:.4f}")
-            st.markdown(f"MAE           : {mae:.4f}")
-            st.markdown(f"MSE           : {mse:.4f}")
-            st.markdown(f"RMSE          : {rmse:.4f}")
-
-        print("*" * 50 + "\n")
+            print("*" * 50 + "\n")
         
 
 # ------------------ Main App Entry ------------------
