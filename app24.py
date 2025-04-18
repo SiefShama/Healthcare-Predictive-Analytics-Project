@@ -1129,7 +1129,7 @@ def Prediction_Column_section():
         
         if target_field == "Diabetes_State":
                         
-            Type = st.radio("Diabetes State type", [0, 1], format_func=lambda x: "SMOTE" if x else "Normal")
+            Type = st.radio("Diabetes State type",[0, 1, 2],format_func=lambda x: "Normal" if x == 0 else "SMOTE" if x == 1 else "Featured")
             if Type == 1:
                 st.markdown ("### SMOTE Diabetes State prediction ")
                 
@@ -1140,7 +1140,14 @@ def Prediction_Column_section():
                     'xgb_Diabetes_State_SMOTE.pkl': '1L5qEGFIklncj-VJSsM5HteSv2RBx9j1D',
                     'logr_Diabetes_State_SMOTE.pkl': '1-0tD0a_mC-0SmlGtRyEGP3etDMHpzoiO'
                     }
-                
+            elif Type == 2:
+                st.markdown ("### Featured Diabetes State prediction ")
+                model_drive_ids = {
+                    'pipe_Diabetes_State_Featured.pkl': '1s7I6ZXwrXgp7jsUNVmkHxTbWPv3k7H4h',
+                    'gnb_Diabetes_State_Featured.pkl': '1RVDO_6gtKJEj7ugyQV20GJpxO47wI3md',
+                    'xgb_Diabetes_State_Featured.pkl': '1-3brE3rXo_8DkBrSEtIIeB5dYPjS2y3f',
+                    'logr_Diabetes_State_Featured.pkl': '1-4z890UTSYOIWaF6SO3KUuZFozR1wuep'
+                    }    
                 
                 
             else:
@@ -1152,6 +1159,7 @@ def Prediction_Column_section():
                     'logr_Diabetes_State.pkl': '1AExNEPHjW_8KITP6qSMqLfkk6ZdkxEIF'
 
                     }
+            
             
             
         elif target_field == "HB":    
@@ -1405,8 +1413,10 @@ def Prediction_Column_section():
         st.title("🧠 Health Risk Prediction App")
         target_field = st.selectbox("Select the field you want us to predict for you:", fields)
         
+                
         if target_field == "Diabetes_State":
-            Type = st.radio("Diabetes State type", [0, 1], format_func=lambda x: "SMOTE" if x else "Normal")
+                        
+            Type = st.radio("Diabetes State type",[0, 1, 2],format_func=lambda x: "Normal" if x == 0 else "SMOTE" if x == 1 else "Featured")
             if Type == 1:
                 st.markdown ("### SMOTE Diabetes State prediction ")
                 
@@ -1417,7 +1427,14 @@ def Prediction_Column_section():
                     'xgb_Diabetes_State_SMOTE.pkl': '1L5qEGFIklncj-VJSsM5HteSv2RBx9j1D',
                     'logr_Diabetes_State_SMOTE.pkl': '1-0tD0a_mC-0SmlGtRyEGP3etDMHpzoiO'
                     }
-                
+            elif Type == 2:
+                st.markdown ("### Featured Diabetes State prediction ")
+                model_drive_ids = {
+                    'pipe_Diabetes_State_Featured.pkl': '1s7I6ZXwrXgp7jsUNVmkHxTbWPv3k7H4h',
+                    'gnb_Diabetes_State_Featured.pkl': '1RVDO_6gtKJEj7ugyQV20GJpxO47wI3md',
+                    'xgb_Diabetes_State_Featured.pkl': '1-3brE3rXo_8DkBrSEtIIeB5dYPjS2y3f',
+                    'logr_Diabetes_State_Featured.pkl': '1-4z890UTSYOIWaF6SO3KUuZFozR1wuep'
+                    }    
                 
                 
             else:
@@ -1429,6 +1446,8 @@ def Prediction_Column_section():
                     'logr_Diabetes_State.pkl': '1AExNEPHjW_8KITP6qSMqLfkk6ZdkxEIF'
 
                     }
+            
+ 
             
         elif target_field == "HB":    
             model_drive_ids = {
