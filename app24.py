@@ -1372,12 +1372,58 @@ def Prediction_Column_section():
         if submitted:
             st.markdown("---")
             st.subheader("📋 Submitted Information")
-
+            
+            
             # Convert to DataFrame for model prediction
             df = pd.DataFrame([user_data])
             st.dataframe(df)
             st.success("✅ Your input has been recorded!")
+            
+            if target_field == "Diabetes_State":
+                        
+                if Type == 2:
+                    # 1. BMI Category: Based on standard BMI classification (model)
+                    def classify_bmi(bmi):
+                        if bmi < 18.5:
+                            return "Underweight"
+                        elif 18.5 <= bmi < 24.9:
+                            return "Normal"
+                        elif 25 <= bmi < 29.9:
+                            return "Overweight"
+                        else:
+                            return "Obese"
 
+                    user_data["BMI_Category"] = user_data["BMI"].apply(classify_bmi)
+
+                    # 2. Age Grouping (model)
+                    def age_group(age):
+                        if age < 30:
+                            return "Young"
+                        elif 30 <= age < 50:
+                            return "Middle-aged"
+                        elif 50 <= age < 65:
+                            return "Senior"
+                        elif age >= 65:
+                            return "Elderly"
+
+                    user_data["Age_Group"] = user_data["Age"].apply(age_group)
+
+                    # 3. Healthy Diet Score (Sum of Fruits and Veggies intake)
+                    user_data["Healthy_Diet_Score"] = user_data["Fruits"] + user_data["Veggies"]
+
+                    # 4. UnHealthy Diet Score (Sum of smoking and Alcohol intake)
+                    user_data["UnHealthy_Diet_Score"] = user_data["HvyAlcoholConsump"] + user_data["Smoker"]
+
+                    # 5. Health Risk Index (Combining multiple risk factors) (model)
+                    user_data["Health_Risk_Index"] = user_data["Heart_Disease"] + user_data["Stroke"] + user_data["DiffWalk"]+user_data["Cholesterol"] + user_data["HB"]
+
+                    # 6. Health Care Index
+                    user_data["Health_Care_Index"] =user_data["PhysActivity"]+user_data["Healthy_Diet_Score"] - user_data["UnHealthy_Diet_Score"] + user_data["CholCheck"]
+
+                    #7 Health Score Index (model)
+                    user_data["Health_Score_Index"] = user_data["MentHlth"]+user_data["GenHlth"] + user_data["PhysHlth"] + user_data["Health_Care_Index"]
+                            
+            
 
             if model:
                 prediction = model.predict(df)[0]
@@ -1387,7 +1433,9 @@ def Prediction_Column_section():
             
             # Convert user_data dictionary to user_input without hardcoding the values
             user_input = [[value for value in user_data.values()]]
-
+            
+            
+            
             if model_id:
                 model = load_model_from_drive(model_id)
                 if model:
