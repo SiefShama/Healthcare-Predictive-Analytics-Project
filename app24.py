@@ -1621,7 +1621,7 @@ def Prediction_Column_section():
     
     
             # === Classification ===
-            if fields in categorical_columns:
+            if target_field in categorical_columns:
                 acc = accuracy_score(y_DD_test, y_pred)
                 prec = precision_score(y_DD_test, y_pred, zero_division=0)
                 rec = recall_score(y_DD_test, y_pred, zero_division=0)
