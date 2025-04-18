@@ -1452,7 +1452,7 @@ def Prediction_Column_section():
             
 
             if model:
-                prediction = model.predict(df)[0]
+                prediction = model.predict(user_data)[0]
                 result = "🟢 Likely Healthy" if prediction == 0 else "🔴 Likely Not Healthy"
        
             model_id = model_drive_ids.get(model_choice)
