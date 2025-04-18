@@ -1586,7 +1586,7 @@ def Prediction_Column_section():
         y_DD = Diabetic_DB[target_field]  # Target
             
         # Split data
-        X_DD_train, X_DD_test, y_DD_train, y_DD_test = train_test_split(X_DD, y_DD, test_size = 0.2, random_state = 1)
+        X_DD_train, X_DD_test, y_DD_train, y_DD_test = train_test_split(X_DD, y_DD, test_size = 0.2, random_state = 0)
     
         
         with st.form("plot_model_form"):
