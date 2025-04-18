@@ -1393,7 +1393,7 @@ def Prediction_Column_section():
                     ]
 
                     # Create a DataFrame with 5 rows, all values = 0
-                    dfd = pd.DataFrame(0, index=range(5), columns=columns)
+                    dfd = pd.DataFrame(0, index=[0], columns=columns)
 
                     # 1. BMI Category: Based on standard BMI classification (model)
                     if user_data["BMI"] < 18.5:
