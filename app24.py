@@ -1279,7 +1279,7 @@ def Prediction_Column_section():
             }
         
      
-    model_choice = st.selectbox("🔍 Select a model to show its Testing results", model_drive_ids.tolist())
+    model_choice = st.selectbox("🔍 Select a model to show its Testing results", model_drive_ids)
     model = load_model_from_drive(model_drive_ids[model_choice])
     st.markdown(f"✅ **You selected:** `{model_choice}`")
 
