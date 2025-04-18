@@ -1127,15 +1127,29 @@ def Prediction_Column_section():
         st.title("🧠 Health Risk Prediction App")
         target_field = st.selectbox("Select the field you want us to predict for you:", fields)
         
-        if target_field == "Diabetes_State":
-            
-            model_drive_ids = {
-                'pipe_Diabetes_State.pkl': '1j9zd7eV4GFUBrwl-hYuoXwvE7bzUZ7fo',
-                'gnb_Diabetes_State.pkl': '1P_xoMjcgmMVpHdcndEJx-nygwxyIYWnK',
-                'xgb_Diabetes_State.pkl': '1Ro2Z8ZikMJeLTFevHWTyJGU54Ai0ZRXn',
-                'logr_Diabetes_State.pkl': '1AExNEPHjW_8KITP6qSMqLfkk6ZdkxEIF'
+        Type = st.radio("Diabetes State type", [0, 1], format_func=lambda x: "SMOTE" if x else "Normal")
+            if Type == 1:
+                st.markdown ("### SMOTE Diabetes State prediction ")
+                
+                model_drive_ids = {
+                    
+                    'pipe_Diabetes_State_SMOTE.pkl': '1XJT0LCT7_AbnEdE01blrdG1P-7zjMseK',
+                    'gnb_Diabetes_State_SMOTE.pkl': '1BGpOeu90HLg1QAcXHQpvacIkjF608vuR',
+                    'xgb_Diabetes_State_SMOTE.pkl': '1L5qEGFIklncj-VJSsM5HteSv2RBx9j1D',
+                    'logr_Diabetes_State_SMOTE.pkl': '1-0tD0a_mC-0SmlGtRyEGP3etDMHpzoiO'
+                    }
+                
+                
+                
+            else:
+                st.markdown ("### Normal Diabetes State prediction ")
+                model_drive_ids = {
+                    'pipe_Diabetes_State.pkl': '1j9zd7eV4GFUBrwl-hYuoXwvE7bzUZ7fo',
+                    'gnb_Diabetes_State.pkl': '1P_xoMjcgmMVpHdcndEJx-nygwxyIYWnK',
+                    'xgb_Diabetes_State.pkl': '1Ro2Z8ZikMJeLTFevHWTyJGU54Ai0ZRXn',
+                    'logr_Diabetes_State.pkl': '1AExNEPHjW_8KITP6qSMqLfkk6ZdkxEIF'
 
-                }
+                    }
             
         elif target_field == "HB":    
             model_drive_ids = {
