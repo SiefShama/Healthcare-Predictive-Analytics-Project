@@ -1382,31 +1382,41 @@ def Prediction_Column_section():
             if target_field == "Diabetes_State":
                         
                 if Type == 2:
-                    # 1. BMI Category: Based on standard BMI classification (model)
-                    def classify_bmi(bmi):
-                        if bmi < 18.5:
-                            return "Underweight"
-                        elif 18.5 <= bmi < 24.9:
-                            return "Normal"
-                        elif 25 <= bmi < 29.9:
-                            return "Overweight"
-                        else:
-                            return "Obese"
+                    # Define the columns
+                    columns = [
+                        'Health_Risk_Index', 'Health_Score_Index',
+                        'BMI_Category_Normal', 'BMI_Category_Obese',
+                        'BMI_Category_Overweight', 'BMI_Category_Underweight',
+                        'Age_Group_Elderly', 'Age_Group_Middle-aged', 'Age_Group_Senior',
+                        'Age_Group_Young', 'GenHlth_1', 'GenHlth_2', 'GenHlth_3', 'GenHlth_4',
+                        'GenHlth_5'
+                    ]
 
-                    user_data["BMI_Category"] = user_data["BMI"].apply(classify_bmi)
+                    # Create a DataFrame with 5 rows, all values = 0
+                    dfd = pd.DataFrame(0, index=range(5), columns=columns)
+
+                    # 1. BMI Category: Based on standard BMI classification (model)
+                    if user_data["BMI"] < 18.5:
+                        dfd['BMI_Category_Underweight'] = 1
+                    elif 18.5 <= user_data["BMI"] < 24.9:
+                        dfd['BMI_Category_Normal'] = 1
+                    elif 25 <= user_data["BMI"] < 29.9:
+                        dfd['BMI_Category_Overweight'] = 1 
+                    else:
+                        dfd['BMI_Category_Obese'] = 1 
+
 
                     # 2. Age Grouping (model)
-                    def age_group(age):
-                        if age < 30:
-                            return "Young"
-                        elif 30 <= age < 50:
-                            return "Middle-aged"
-                        elif 50 <= age < 65:
-                            return "Senior"
-                        elif age >= 65:
-                            return "Elderly"
-
-                    user_data["Age_Group"] = user_data["Age"].apply(age_group)
+                   
+                    if user_data["Age"] < 30:
+                        dfd['Age_Group_Young'] = 1
+                    elif 30 <= user_data["Age"] < 50:
+                        dfd['Age_Group_Middle-aged'] = 1 
+                    elif 50 <= user_data["Age"] < 65:
+                        dfd['Age_Group_Senior'] = 1 
+                    elif user_data["Age"] >= 65:
+                        dfd['Age_Group_Elderly'] = 1 
+                
 
                     # 3. Healthy Diet Score (Sum of Fruits and Veggies intake)
                     user_data["Healthy_Diet_Score"] = user_data["Fruits"] + user_data["Veggies"]
@@ -1415,14 +1425,30 @@ def Prediction_Column_section():
                     user_data["UnHealthy_Diet_Score"] = user_data["HvyAlcoholConsump"] + user_data["Smoker"]
 
                     # 5. Health Risk Index (Combining multiple risk factors) (model)
-                    user_data["Health_Risk_Index"] = user_data["Heart_Disease"] + user_data["Stroke"] + user_data["DiffWalk"]+user_data["Cholesterol"] + user_data["HB"]
+                    dfd["Health_Risk_Index"] = user_data["Heart_Disease"] + user_data["Stroke"] + user_data["DiffWalk"]+user_data["Cholesterol"] + user_data["HB"]
 
                     # 6. Health Care Index
                     user_data["Health_Care_Index"] =user_data["PhysActivity"]+user_data["Healthy_Diet_Score"] - user_data["UnHealthy_Diet_Score"] + user_data["CholCheck"]
 
                     #7 Health Score Index (model)
-                    user_data["Health_Score_Index"] = user_data["MentHlth"]+user_data["GenHlth"] + user_data["PhysHlth"] + user_data["Health_Care_Index"]
-                            
+                    dfd["Health_Score_Index"] = user_data["MentHlth"]+user_data["GenHlth"] + user_data["PhysHlth"] + user_data["Health_Care_Index"]
+                    
+                    if user_data["GenHlth"] == 1:
+                       dfd['GenHlth_1'] = 1 
+                    elif user_data["GenHlth"] == 2:
+                        dfd['GenHlth_2'] = 1 
+                    elif user_data["GenHlth"] == 3:
+                        dfd['GenHlth_3'] = 1 
+                    elif user_data["GenHlth"] == 4:
+                        dfd['GenHlth_4'] = 1 
+                    elif user_data["GenHlth"] == 5:
+                        dfd['GenHlth_5'] = 1 
+                    
+                    user_data = dfd
+                     
+
+
+                     
             
 
             if model:
