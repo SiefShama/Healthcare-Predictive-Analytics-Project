@@ -1446,6 +1446,16 @@ def Prediction_Column_section():
                     
                     user_data = dfd
                      
+                    user_input = user_data.values.tolist()
+                    
+                else:
+                    # Convert user_data dictionary to user_input without hardcoding the values
+                    user_input = [[value for value in user_data.values()]]
+            else:
+                # Convert user_data dictionary to user_input without hardcoding the values
+                user_input = [[value for value in user_data.values()]]
+                
+
 
 
                      
@@ -1454,9 +1464,7 @@ def Prediction_Column_section():
             
             model_id = model_drive_ids.get(model_choice)
             
-            # Convert user_data dictionary to user_input without hardcoding the values
-            user_input = user_data.values.tolist()
-
+            
             
             
             
