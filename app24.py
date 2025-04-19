@@ -1713,19 +1713,7 @@ def Prediction_Column_section():
                 # Create a DataFrame with 5 rows, all values = 0
                 dfd = pd.DataFrame(0, index=[0], columns=columns)
 
-                # 1. BMI Category: Based on standard BMI classification (model)
                 
-                
-                if Diabetic_DB["BMI"] < 18:
-                    dfd['BMI_Category_Underweight'] = 1
-                elif 18 <= Diabetic_DB["BMI"] < 25:
-                    dfd['BMI_Category_Normal'] = 1
-                elif 25 <= Diabetic_DB["BMI"] < 30:
-                    dfd['BMI_Category_Overweight'] = 1 
-                else:
-                    dfd['BMI_Category_Obese'] = 1 
-
-
                 # 2. Age Grouping (model)
                
                 if Diabetic_DB["Age"] < 30:
@@ -1736,6 +1724,21 @@ def Prediction_Column_section():
                     dfd['Age_Group_Senior'] = 1 
                 elif Diabetic_DB["Age"] >= 65:
                     dfd['Age_Group_Elderly'] = 1 
+                
+                # 1. BMI Category: Based on standard BMI classification (model)
+                
+                
+                if Diabetic_DB["BMI"] < 18:
+                    dfd['BMI_Category_Underweight'] = 1
+                elif 18 <= Diabetic_DB["BMI"] < 25:
+                    dfd['BMI_Category_Normal'] = 1
+                elif 25 <= Diabetic_DB["BMI"] < 30:
+                    dfd['BMI_Category_Overweight'] = 1 
+                elif Diabetic_DB["BMI"] >= 30:
+                    dfd['BMI_Category_Obese'] = 1 
+
+
+                
             
 
                 # 3. Healthy Diet Score (Sum of Fruits and Veggies intake)
