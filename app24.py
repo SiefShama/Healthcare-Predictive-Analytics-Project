@@ -1691,19 +1691,15 @@ def Prediction_Column_section():
         model = load_model_from_drive(model_drive_ids[model_choice])
         st.markdown(f"✅ **You selected:** `{model_choice}`")
         
-        
-        
-        
-        
-        Diabetic_DB = load_data("Cleaned")
+
         
         if target_field == "Diabetes_State":
                         
             if Type == 2:
               
-                
+                Diabetic_DB = load_data("Cleaned")
                 # Copy the dataframe to avoid modifying the original one
-                df = Diabetic_DB.copy()
+                
                 
                 
                 # Define the columns
@@ -1716,46 +1712,46 @@ def Prediction_Column_section():
                     'GenHlth_5'
                 ]
                 
-                dfd["Diabetes_State"] = df["Diabetes_State"]
+                dfd["Diabetes_State"] = Diabetic_DB["Diabetes_State"]
                 
                 # Create a DataFrame with 5 rows, all values = 0
                 dfd = pd.DataFrame(0, index=[0], columns=columns)
 
                 # 1. BMI Category: Based on standard BMI classification (model)
                 
-                dfd['BMI_Category_Underweight'] = (df["BMI"] < 18).astype(int)
-                dfd['BMI_Category_Normal'] = ((df["BMI"] >= 18) & (df["BMI"] < 25)).astype(int)
-                dfd['BMI_Category_Overweight'] = ((df["BMI"] >= 25) & (df["BMI"] < 30)).astype(int)
-                dfd['BMI_Category_Obese'] = (df["BMI"] >= 30).astype(int)
+                dfd['BMI_Category_Underweight'] = (Diabetic_DB["BMI"] < 18).astype(int)
+                dfd['BMI_Category_Normal'] = ((Diabetic_DB["BMI"] >= 18) & (Diabetic_DB["BMI"] < 25)).astype(int)
+                dfd['BMI_Category_Overweight'] = ((Diabetic_DB["BMI"] >= 25) & (Diabetic_DB["BMI"] < 30)).astype(int)
+                dfd['BMI_Category_Obese'] = (Diabetic_DB["BMI"] >= 30).astype(int)
 
                 # 2. Age Grouping (model)
                
-                dfd['Age_Group_Young'] = (df["Age"] < 30).astype(int)
-                dfd['Age_Group_Middle-aged'] = ((df["Age"] >= 30) & (df["Age"] < 50)).astype(int)
-                dfd['Age_Group_Senior'] = ((df["Age"] >= 50) & (df["Age"] < 65)).astype(int)
-                dfd['Age_Group_Elderly'] = (df["Age"] >= 65).astype(int)
+                dfd['Age_Group_Young'] = (Diabetic_DB["Age"] < 30).astype(int)
+                dfd['Age_Group_Middle-aged'] = ((Diabetic_DB["Age"] >= 30) & (Diabetic_DB["Age"] < 50)).astype(int)
+                dfd['Age_Group_Senior'] = ((Diabetic_DB["Age"] >= 50) & (Diabetic_DB["Age"] < 65)).astype(int)
+                dfd['Age_Group_Elderly'] = (Diabetic_DB["Age"] >= 65).astype(int)
             
 
                 # 3. Healthy Diet Score (Sum of Fruits and Veggies intake)
-                df["Healthy_Diet_Score"] = df["Fruits"] + df["Veggies"]
+                Diabetic_DB["Healthy_Diet_Score"] = Diabetic_DB["Fruits"] + Diabetic_DB["Veggies"]
 
                 # 4. UnHealthy Diet Score (Sum of smoking and Alcohol intake)
-                df["UnHealthy_Diet_Score"] = df["HvyAlcoholConsump"] + df["Smoker"]
+                Diabetic_DB["UnHealthy_Diet_Score"] = Diabetic_DB["HvyAlcoholConsump"] + Diabetic_DB["Smoker"]
 
                 # 5. Health Risk Index (Combining multiple risk factors) (model)
-                dfd["Health_Risk_Index"] = df["Heart_Disease"] + df["Stroke"] + df["DiffWalk"]+df["Cholesterol"] + df["HB"]
+                dfd["Health_Risk_Index"] = Diabetic_DB["Heart_Disease"] + Diabetic_DB["Stroke"] + Diabetic_DB["DiffWalk"]+Diabetic_DB["Cholesterol"] + Diabetic_DB["HB"]
 
                 # 6. Health Care Index
-                df["Health_Care_Index"] =df["PhysActivity"]+df["Healthy_Diet_Score"] - df["UnHealthy_Diet_Score"] + df["CholCheck"]
+                Diabetic_DB["Health_Care_Index"] =Diabetic_DB["PhysActivity"]+Diabetic_DB["Healthy_Diet_Score"] - Diabetic_DB["UnHealthy_Diet_Score"] + Diabetic_DB["CholCheck"]
 
                 #7 Health Score Index (model)
-                dfd["Health_Score_Index"] = df["MentHlth"]+df["GenHlth"] + df["PhysHlth"] + df["Health_Care_Index"]
+                dfd["Health_Score_Index"] = Diabetic_DB["MentHlth"]+Diabetic_DB["GenHlth"] + Diabetic_DB["PhysHlth"] + Diabetic_DB["Health_Care_Index"]
                 
-                dfd['GenHlth_1'] = (df["GenHlth"] == 1).astype(int)
-                dfd['GenHlth_2'] = (df["GenHlth"] == 2).astype(int)
-                dfd['GenHlth_3'] = (df["GenHlth"] == 3).astype(int)
-                dfd['GenHlth_4'] = (df["GenHlth"] == 4).astype(int)
-                dfd['GenHlth_5'] = (df["GenHlth"] == 5).astype(int)
+                dfd['GenHlth_1'] = (Diabetic_DB["GenHlth"] == 1).astype(int)
+                dfd['GenHlth_2'] = (Diabetic_DB["GenHlth"] == 2).astype(int)
+                dfd['GenHlth_3'] = (Diabetic_DB["GenHlth"] == 3).astype(int)
+                dfd['GenHlth_4'] = (Diabetic_DB["GenHlth"] == 4).astype(int)
+                dfd['GenHlth_5'] = (Diabetic_DB["GenHlth"] == 5).astype(int)
 
                 
                  
@@ -1764,10 +1760,12 @@ def Prediction_Column_section():
                 y_DD = dfd[target_field]  # Target
                     
             else:
+                Diabetic_DB = load_data("Cleaned")
                 # Selecting features and target
                 X_DD = Diabetic_DB.drop(columns=[target_field])  # Features
                 y_DD = Diabetic_DB[target_field]  # Target
         else:
+            Diabetic_DB = load_data("Cleaned")
             # Selecting features and target
             X_DD = Diabetic_DB.drop(columns=[target_field])  # Features
             y_DD = Diabetic_DB[target_field]  # Target
