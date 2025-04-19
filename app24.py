@@ -1700,7 +1700,7 @@ def Prediction_Column_section():
         if target_field == "Diabetes_State":
                         
             if Type == 2:
-                Diabetic_DB = load_data("Cleaned")
+              
                 
                 # Copy the dataframe to avoid modifying the original one
                 df = Diabetic_DB.copy()
@@ -1715,7 +1715,9 @@ def Prediction_Column_section():
                     'Age_Group_Young', 'GenHlth_1', 'GenHlth_2', 'GenHlth_3', 'GenHlth_4',
                     'GenHlth_5'
                 ]
-
+                
+                dfd["Diabetes_State"] = df["Diabetes_State"]
+                
                 # Create a DataFrame with 5 rows, all values = 0
                 dfd = pd.DataFrame(0, index=[0], columns=columns)
 
