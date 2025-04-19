@@ -1701,7 +1701,7 @@ def Prediction_Column_section():
                         
             if Type == 2:
                 # Define the columns
-                columns = [
+                columns = ['Diabetes_State',
                     'Health_Risk_Index', 'Health_Score_Index',
                     'BMI_Category_Normal', 'BMI_Category_Obese',
                     'BMI_Category_Overweight', 'BMI_Category_Underweight',
@@ -1762,11 +1762,11 @@ def Prediction_Column_section():
                 elif Diabetic_DB["GenHlth"] == 5:
                     dfd['GenHlth_5'] = 1 
                 
-                Diabetic_DB_1 = dfd
+                
                  
                 # Selecting features and target
-                X_DD = Diabetic_DB_1.drop(columns=[target_field])  # Features
-                y_DD = Diabetic_DB_1[target_field]  # Target
+                X_DD = dfd.drop(columns=[target_field])  # Features
+                y_DD = dfd[target_field]  # Target
                     
             else:
                 # Selecting features and target
