@@ -1721,27 +1721,17 @@ def Prediction_Column_section():
 
                 # 1. BMI Category: Based on standard BMI classification (model)
                 
-                
-                if df["BMI"] < 18:
-                    dfd['BMI_Category_Underweight'] = 1
-                elif 18 <= df["BMI"] < 25:
-                    dfd['BMI_Category_Normal'] = 1
-                elif 25 <= df["BMI"] < 30:
-                    dfd['BMI_Category_Overweight'] = 1 
-                elif df["BMI"] >= 30:
-                    dfd['BMI_Category_Obese'] = 1 
-
+                dfd['BMI_Category_Underweight'] = (df["BMI"] < 18).astype(int)
+                dfd['BMI_Category_Normal'] = ((df["BMI"] >= 18) & (df["BMI"] < 25)).astype(int)
+                dfd['BMI_Category_Overweight'] = ((df["BMI"] >= 25) & (df["BMI"] < 30)).astype(int)
+                dfd['BMI_Category_Obese'] = (df["BMI"] >= 30).astype(int)
 
                 # 2. Age Grouping (model)
                
-                if df["Age"] < 30:
-                    dfd['Age_Group_Young'] = 1
-                elif 30 <= df["Age"] < 50:
-                    dfd['Age_Group_Middle-aged'] = 1 
-                elif 50 <= df["Age"] < 65:
-                    dfd['Age_Group_Senior'] = 1 
-                elif df["Age"] >= 65:
-                    dfd['Age_Group_Elderly'] = 1 
+                dfd['Age_Group_Young'] = (df["Age"] < 30).astype(int)
+                dfd['Age_Group_Middle-aged'] = ((df["Age"] >= 30) & (df["Age"] < 50)).astype(int)
+                dfd['Age_Group_Senior'] = ((df["Age"] >= 50) & (df["Age"] < 65)).astype(int)
+                dfd['Age_Group_Elderly'] = (df["Age"] >= 65).astype(int)
             
 
                 # 3. Healthy Diet Score (Sum of Fruits and Veggies intake)
@@ -1759,17 +1749,12 @@ def Prediction_Column_section():
                 #7 Health Score Index (model)
                 dfd["Health_Score_Index"] = df["MentHlth"]+df["GenHlth"] + df["PhysHlth"] + df["Health_Care_Index"]
                 
-                if df["GenHlth"] == 1:
-                   dfd['GenHlth_1'] = 1 
-                elif df["GenHlth"] == 2:
-                    dfd['GenHlth_2'] = 1 
-                elif df["GenHlth"] == 3:
-                    dfd['GenHlth_3'] = 1 
-                elif df["GenHlth"] == 4:
-                    dfd['GenHlth_4'] = 1 
-                elif df["GenHlth"] == 5:
-                    dfd['GenHlth_5'] = 1 
-                
+                dfd['GenHlth_1'] = (df["GenHlth"] == 1).astype(int)
+                dfd['GenHlth_2'] = (df["GenHlth"] == 2).astype(int)
+                dfd['GenHlth_3'] = (df["GenHlth"] == 3).astype(int)
+                dfd['GenHlth_4'] = (df["GenHlth"] == 4).astype(int)
+                dfd['GenHlth_5'] = (df["GenHlth"] == 5).astype(int)
+
                 
                  
                 # Selecting features and target
