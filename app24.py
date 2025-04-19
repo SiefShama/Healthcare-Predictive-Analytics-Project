@@ -1715,12 +1715,12 @@ def Prediction_Column_section():
 
                 # 1. BMI Category: Based on standard BMI classification (model)
                 
-                row = Diabetic_DB["BMI"]
-                if row < 18.5:
+                
+                if Diabetic_DB["BMI"] < 18:
                     dfd['BMI_Category_Underweight'] = 1
-                elif 18.5 <= row < 24.9:
+                elif 18 <= Diabetic_DB["BMI"] < 25:
                     dfd['BMI_Category_Normal'] = 1
-                elif 25 <= row < 29.9:
+                elif 25 <= Diabetic_DB["BMI"] < 30:
                     dfd['BMI_Category_Overweight'] = 1 
                 else:
                     dfd['BMI_Category_Obese'] = 1 
