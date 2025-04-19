@@ -1717,7 +1717,7 @@ def Prediction_Column_section():
                 ]
                 
                 # Create a DataFrame with 5 rows, all values = 0
-                dfd = pd.DataFrame(0, index=[0], columns=columns)
+                dfd = pd.DataFrame(0, index=df.index, columns=columns)
                 
                 dfd["Diabetes_State"] = df["Diabetes_State"]
                 
