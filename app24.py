@@ -1700,6 +1700,11 @@ def Prediction_Column_section():
         if target_field == "Diabetes_State":
                         
             if Type == 2:
+                
+                # Copy the dataframe to avoid modifying the original one
+                df = Diabetic_DB.copy()
+                
+                
                 # Define the columns
                 columns = ['Diabetes_State',
                     'Health_Risk_Index', 'Health_Score_Index',
@@ -1713,58 +1718,55 @@ def Prediction_Column_section():
                 # Create a DataFrame with 5 rows, all values = 0
                 dfd = pd.DataFrame(0, index=[0], columns=columns)
 
-                
-                # 2. Age Grouping (model)
-               
-                if Diabetic_DB["Age"] < 30:
-                    dfd['Age_Group_Young'] = 1
-                elif 30 <= Diabetic_DB["Age"] < 50:
-                    dfd['Age_Group_Middle-aged'] = 1 
-                elif 50 <= Diabetic_DB["Age"] < 65:
-                    dfd['Age_Group_Senior'] = 1 
-                elif Diabetic_DB["Age"] >= 65:
-                    dfd['Age_Group_Elderly'] = 1 
-                
                 # 1. BMI Category: Based on standard BMI classification (model)
                 
                 
-                if Diabetic_DB["BMI"] < 18:
+                if df["BMI"] < 18:
                     dfd['BMI_Category_Underweight'] = 1
-                elif 18 <= Diabetic_DB["BMI"] < 25:
+                elif 18 <= df["BMI"] < 25:
                     dfd['BMI_Category_Normal'] = 1
-                elif 25 <= Diabetic_DB["BMI"] < 30:
+                elif 25 <= df["BMI"] < 30:
                     dfd['BMI_Category_Overweight'] = 1 
-                elif Diabetic_DB["BMI"] >= 30:
+                elif df["BMI"] >= 30:
                     dfd['BMI_Category_Obese'] = 1 
 
 
-                
+                # 2. Age Grouping (model)
+               
+                if df["Age"] < 30:
+                    dfd['Age_Group_Young'] = 1
+                elif 30 <= df["Age"] < 50:
+                    dfd['Age_Group_Middle-aged'] = 1 
+                elif 50 <= df["Age"] < 65:
+                    dfd['Age_Group_Senior'] = 1 
+                elif df["Age"] >= 65:
+                    dfd['Age_Group_Elderly'] = 1 
             
 
                 # 3. Healthy Diet Score (Sum of Fruits and Veggies intake)
-                Diabetic_DB["Healthy_Diet_Score"] = Diabetic_DB["Fruits"] + Diabetic_DB["Veggies"]
+                df["Healthy_Diet_Score"] = df["Fruits"] + df["Veggies"]
 
                 # 4. UnHealthy Diet Score (Sum of smoking and Alcohol intake)
-                Diabetic_DB["UnHealthy_Diet_Score"] = Diabetic_DB["HvyAlcoholConsump"] + Diabetic_DB["Smoker"]
+                df["UnHealthy_Diet_Score"] = df["HvyAlcoholConsump"] + df["Smoker"]
 
                 # 5. Health Risk Index (Combining multiple risk factors) (model)
-                dfd["Health_Risk_Index"] = Diabetic_DB["Heart_Disease"] + Diabetic_DB["Stroke"] + Diabetic_DB["DiffWalk"]+Diabetic_DB["Cholesterol"] + Diabetic_DB["HB"]
+                dfd["Health_Risk_Index"] = df["Heart_Disease"] + df["Stroke"] + df["DiffWalk"]+df["Cholesterol"] + df["HB"]
 
                 # 6. Health Care Index
-                Diabetic_DB["Health_Care_Index"] =Diabetic_DB["PhysActivity"]+Diabetic_DB["Healthy_Diet_Score"] - Diabetic_DB["UnHealthy_Diet_Score"] + Diabetic_DB["CholCheck"]
+                df["Health_Care_Index"] =df["PhysActivity"]+df["Healthy_Diet_Score"] - df["UnHealthy_Diet_Score"] + df["CholCheck"]
 
                 #7 Health Score Index (model)
-                dfd["Health_Score_Index"] = Diabetic_DB["MentHlth"]+Diabetic_DB["GenHlth"] + Diabetic_DB["PhysHlth"] + Diabetic_DB["Health_Care_Index"]
+                dfd["Health_Score_Index"] = df["MentHlth"]+df["GenHlth"] + df["PhysHlth"] + df["Health_Care_Index"]
                 
-                if Diabetic_DB["GenHlth"] == 1:
+                if df["GenHlth"] == 1:
                    dfd['GenHlth_1'] = 1 
-                elif Diabetic_DB["GenHlth"] == 2:
+                elif df["GenHlth"] == 2:
                     dfd['GenHlth_2'] = 1 
-                elif Diabetic_DB["GenHlth"] == 3:
+                elif df["GenHlth"] == 3:
                     dfd['GenHlth_3'] = 1 
-                elif Diabetic_DB["GenHlth"] == 4:
+                elif df["GenHlth"] == 4:
                     dfd['GenHlth_4'] = 1 
-                elif Diabetic_DB["GenHlth"] == 5:
+                elif df["GenHlth"] == 5:
                     dfd['GenHlth_5'] = 1 
                 
                 
