@@ -1700,6 +1700,7 @@ def Prediction_Column_section():
         if target_field == "Diabetes_State":
                         
             if Type == 2:
+                Diabetic_DB = load_data("Cleaned")
                 
                 # Copy the dataframe to avoid modifying the original one
                 df = Diabetic_DB.copy()
