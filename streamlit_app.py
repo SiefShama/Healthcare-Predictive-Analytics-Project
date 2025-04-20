@@ -1083,7 +1083,7 @@ def Prediction_Column_section():
     
     # --- List of all input fields (same order as form inputs) ---
     Select_fields = [
-        "Cholesterol", "Heart_Disease", "PhysHlth", "Stroke", "GenHlth", "MentHlth"
+        "HB", "Cholesterol","Heart_Disease", "PhysHlth", "Stroke", "GenHlth", "MentHlth"
     ]
     
     fields = [
