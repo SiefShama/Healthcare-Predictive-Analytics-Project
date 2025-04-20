@@ -1082,8 +1082,14 @@ def Models_Testing_section():
 def Prediction_Column_section():   
     
     # --- List of all input fields (same order as form inputs) ---
-    fields = [
+    Select_fields = [
         "Cholesterol", "Heart_Disease", "PhysHlth", "Stroke", "GenHlth", "MentHlth"
+    ]
+    
+    fields = [
+        "Diabetes_State", "HB", "Cholesterol", "BMI", "Heart_Disease", "PhysActivity",
+        "PhysHlth", "Gender", "Age", "Stroke", "GenHlth", "CholCheck", "Smoker",
+        "Fruits", "Veggies", "HvyAlcoholConsump", "MentHlth", "DiffWalk"
     ]
     categorical_columns = [
         "Diabetes_State", "Gender", "Stroke",
@@ -1098,7 +1104,7 @@ def Prediction_Column_section():
     if choice == "Prediction":
         # --- User selects which field to predict ---
         st.title("🧠 Health Risk Prediction App")
-        target_field = st.selectbox("Select the field you want us to predict for you:", fields)
+        target_field = st.selectbox("Select the field you want us to predict for you:", Select_fields)
         
         if target_field == "Diabetes_State":
                         
@@ -1460,7 +1466,7 @@ def Prediction_Column_section():
         
         # --- User selects which field to predict ---
         st.title("🧠 Health Risk Prediction App")
-        target_field = st.selectbox("Select the field you want us to predict for you:", fields)
+        target_field = st.selectbox("Select the field you want us to predict for you:", Select_fields)
                         
         if target_field == "Diabetes_State":
                         
