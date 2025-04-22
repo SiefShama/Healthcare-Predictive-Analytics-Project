@@ -1,8 +1,5 @@
 # DEPI2_GP_Health_Care
  
-Sure! Here's a professional and structured `README.md` file for your **Healthcare Predictive Analytics** project:
-
----
 
 # Healthcare Predictive Analytics
 
