@@ -76,16 +76,7 @@ healthcare-predictive-analytics/
 
 ---
 
-## 📌 Getting Started
 
-To get started with the project:
-
-1. Clone this repository  
-2. Set up a virtual environment and install dependencies  
-3. Run Jupyter Notebooks in the `notebooks/` folder to follow along with EDA and modeling  
-4. Explore deployment options in the `app/` directory  
-
----
 
 ## 🤝 Contributing
 
