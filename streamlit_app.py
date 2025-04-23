@@ -899,9 +899,7 @@ def Models_Testing_section():
 
     model_drive_ids_C = {
         "pipe_DD": "1-xCpVwzAhJhKuU0zgch_x5aDvEvE4B0D",
-        "gnb_DD": "1-pnjrekA5J-tD3sUUxFqoNSiwpO-zqhm",
-        "svc_DD": "1-nI_HOuD7JYYj5mQfe0ALuPOZfMJuK_l",
-        "knn_DD": "1-kgfXJDdFiwD6jnSz5Zk-4luzE6UY6Z3",
+        "gnb_DD": "1-pnjrekA5J-tD3sUUxFqoNSiwpO-zqhm",      
         "tree_DD": "1-jkof1CesquCSRHcrdDVwSVxiH2GU_a_",
         "xgb_DD": "101OGOHoLmxWm1rnwgO3Dqq6Q6UVGTyuW",
         "logr_DD": "1-zgV0vl8g1qWsQkrqB7nzZS_a_sXnvev"
@@ -918,15 +916,13 @@ def Models_Testing_section():
     if model_type == "Classification":
         model_data = {
             "Model": list(model_drive_ids_C.keys()),
-            "Accuracy": [0.7866, 0.7824, 0.7957, 0.7682, 0.6933,  0.8027,  0.7861],
-            "Precision": [0.7589, 0.7223, 0.7641, 0.7009, 0.6064,  0.7470,  0.7589],
-            "Recall": [0.6614, 0.7156, 0.6864, 0.7047, 0.6020,  0.7449,  0.6596],
-            "F1 Score": [0.7068, 0.7189, 0.7232, 0.7028, 0.6042,  0.7460,  0.7058],
+            "Accuracy": [0.7866, 0.7824, 0.6933,  0.8027,  0.7861],
+            "Precision": [0.7589, 0.7223,  0.6064,  0.7470,  0.7589],
+            "Recall": [0.6614, 0.7156,  0.6020,  0.7449,  0.6596],
+            "F1 Score": [0.7068, 0.7189,  0.6042,  0.7460,  0.7058],
             "Notes": [
                 "Balanced, slightly favors class 0",
-                "Solid baseline; consistent class performance",
-                "Strong, but no predict_proba for ROC",
-                "Overfitting likely; big gap in train vs. test",
+                "Solid baseline; consistent class performance",             
                 "Very high training score (0.9825); severe overfitting",
                 "⚡ Best-performing model in classification",
                 "Good baseline model, well-balanced"
@@ -942,7 +938,6 @@ def Models_Testing_section():
         - **Top Performers**: `xgb_DD` shows the best overall performance with accuracy above 0.80 and balanced precision-recall.
         - **Baseline Strong**: `logr_DD` and `pipe_DD` provide a strong logistic foundation.
         - **Overfitting Warning**: `tree_DD` massively overfits, showing a huge training score gap (0.9825 vs. 0.6933).
-        - **SVM** (`svc_DD`) is reliable but slightly behind XGB.
         - **Naive Bayes** (`gnb_DD`) is surprisingly competitive given its simplicity.
         """, unsafe_allow_html=True)
         
